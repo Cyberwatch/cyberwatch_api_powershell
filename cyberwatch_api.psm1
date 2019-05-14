@@ -4,13 +4,13 @@ Function SendApiRequest
 {
 <#
 .SYNOPSIS
-     Cyberwatch API Powershell Client.
+    Cyberwatch API Powershell Client.
 .DESCRIPTION
-     Send REST Query to Cyberwatch API
+    Send REST Query to Cyberwatch API
 .EXAMPLE
-     SendApiRequest -api_url $API_URL -api_key $API_KEY -secret_key $SECRET_KEY -http_method $http_method -request_URI $request_URI
+    SendApiRequest -api_url $API_URL -api_key $API_KEY -secret_key $SECRET_KEY -http_method $http_method -request_URI $request_URI
 .PARAMETER api_url
-     Your Cyberwatch instance base url
+    Your Cyberwatch instance base url
 #>
 Param    (
     [PARAMETER(Mandatory=$true)][string]$api_url = 'https://cyberwatch.local',
@@ -42,12 +42,12 @@ Param    (
     }
 }
 
-Class ApiClient {
+Class CbwApiClient {
     [string]$api_url
     [string]$api_key
     [string]$secret_key
 
-    ApiClient ([string]$api_url, [string]$api_key, [string]$secret_key)
+    CbwApiClient ([string]$api_url, [string]$api_key, [string]$secret_key)
     {
         $this.api_url = $api_url
         $this.api_key = $api_key
@@ -73,3 +73,26 @@ Class ApiClient {
         return $this.request('GET', "/api/v2/servers/${id}")
     }
 }
+
+
+function Get-CyberwatchApi
+{
+<#
+.SYNOPSIS
+    Cyberwatch API Powershell Client.
+.DESCRIPTION
+    Send REST Query to Cyberwatch API
+.EXAMPLE
+    Get-CyberwatchApi -api_url $API_URL -api_key $API_KEY -secret_key $SECRET_KEY
+.PARAMETER api_url
+    Your Cyberwatch instance base url
+#>
+Param    (
+    [PARAMETER(Mandatory=$true)][string]$api_url = 'https://cyberwatch.local',
+    [PARAMETER(Mandatory=$true)][string]$api_key,
+    [PARAMETER(Mandatory=$true)][string]$secret_key
+    )
+
+  return [CbwApiClient]::new($api_url, $api_key, $secret_key)
+}
+

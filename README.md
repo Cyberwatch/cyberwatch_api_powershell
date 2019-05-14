@@ -23,7 +23,7 @@ PS> $API_URL = "https://cyberwatch.local"
 - Create a `ApiClient` :
 
 ```powershell
-PS> $client = [ApiClient]::new($API_URL, $API_KEY, $SECRET_KEY)
+PS> $client = Get-CyberwatchApi -api_url $API_URL -api_key $API_KEY -secret_key $SECRET_KEY
 ```
 
 - Use the client to ping the API :
