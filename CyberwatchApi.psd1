@@ -12,7 +12,7 @@
 RootModule = 'CyberwatchApi.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.1'
+ModuleVersion = '1.2'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -95,13 +95,13 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        # Tags = @()
+        Tags = @('PSEdition_Desktop', 'Cyberwatch', 'Api')
 
         # A URL to the license for this module.
-        # LicenseUri = ''
+        LicenseUri = 'https://github.com/Cyberwatch/cyberwatch_api_powershell/blob/master/LICENSE'
 
         # A URL to the main website for this project.
-        # ProjectUri = ''
+        ProjectUri = 'https://github.com/Cyberwatch/cyberwatch_api_powershell'
 
         # A URL to an icon representing this module.
         # IconUri = ''
