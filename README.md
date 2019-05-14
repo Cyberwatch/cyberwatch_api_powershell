@@ -6,10 +6,10 @@
 
 ## Usage
 
-- Download and run `cyberwatch_api.ps1` with Powershell
+- Download and run `CyberwatchApi.psm1` with Powershell
 
 ```powershell
-wget 'https://raw.githubusercontent.com/Cyberwatch/cyberwatch_api_powershell/master/cyberwatch_api.psm1' | iex
+wget 'https://raw.githubusercontent.com/Cyberwatch/cyberwatch_api_powershell/master/CyberwatchApi.psm1' | iex
 ```
 
 - Use your personal credentials :
