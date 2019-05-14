@@ -4,30 +4,32 @@ Function SendApiRequest
 {
 <#
 .SYNOPSIS
-    Cyberwatch API Powershell Client.
+        Cyberwatch API Powershell Client.
 .DESCRIPTION
-    Send REST Query to Cyberwatch API
+        Send REST Query to Cyberwatch API
 .EXAMPLE
-    SendApiRequest -api_url $API_URL -api_key $API_KEY -secret_key $SECRET_KEY -http_method $http_method -request_URI $request_URI
+        SendApiRequest -api_url $API_URL -api_key $API_KEY -secret_key $SECRET_KEY -http_method $http_method -request_URI $request_URI
 .PARAMETER api_url
-    Your Cyberwatch instance base url
+        Your Cyberwatch instance base url
 #>
 Param    (
     [PARAMETER(Mandatory=$true)][string]$api_url = 'https://cyberwatch.local',
     [PARAMETER(Mandatory=$true)][string]$api_key,
     [PARAMETER(Mandatory=$true)][string]$secret_key,
     [PARAMETER(Mandatory=$true)][string]$http_method = 'GET',
-    [PARAMETER(Mandatory=$true)][string]$request_URI = '/api/v2/ping'
+    [PARAMETER(Mandatory=$true)][string]$request_URI = '/api/v2/ping',
+    [PARAMETER(Mandatory=$false)][Hashtable]$content
     )
 
-    $content_type = ''
-    # $content = ""
-    # $bytes = [System.Text.Encoding]::UTF8.GetBytes($content)
-    # $Hasher = New-Object -TypeName System.Security.Cryptography.MD5CryptoServiceProvider
-    # $md5 = $Hasher.ComputeHash($bytes)
-    # $content_MD5 = [System.Convert]::ToBase64String($md5)
-    $content_MD5 = ''
+    if($content) {
+        $content_type = 'application/json'
+        $json_body = $content | ConvertTo-Json
+    }
+    else {
+        $content_type = ''
+    }
 
+    $content_MD5 = ''
     $timestamp = [System.DateTime]::UtcNow.ToString('R')
     $message = "$http_method,$content_type,$content_MD5,$request_URI,$timestamp"
     $hmacsha = New-Object System.Security.Cryptography.HMACSHA256
@@ -39,7 +41,7 @@ Param    (
         "accept"="application/json";
         "Date"=$timestamp
         "Authorization"="Cyberwatch APIAuth-HMAC-SHA256 ${API_KEY}:$signature"
-    }
+    } -ContentType $content_type -Body $json_body
 }
 
 Class CbwApiClient {
@@ -58,6 +60,10 @@ Class CbwApiClient {
         return SendApiRequest -api_url $this.api_url -api_key $this.api_key -secret_key $this.secret_key -http_method $http_method -request_URI $request_URI
     }
 
+    [object] request([string]$http_method, [string]$request_URI, [Hashtable]$content) {
+        return SendApiRequest -api_url $this.api_url -api_key $this.api_key -secret_key $this.secret_key -http_method $http_method -request_URI $request_URI -content $content
+    }
+
     [object] ping()
     {
         return $this.request('GET', '/api/v2/ping')
@@ -72,6 +78,16 @@ Class CbwApiClient {
     {
         return $this.request('GET', "/api/v2/servers/${id}")
     }
+
+    [object] update_server([string]$id, [Object]$content)
+    {
+        return $this.request('PUT', "/api/v2/servers/${id}", $content)
+    }
+
+    [object] delete_server([string]$id)
+    {
+        return $this.request('DELETE', "/api/v2/servers/${id}")
+    }
 }
 
 
@@ -79,13 +95,13 @@ function Get-CyberwatchApi
 {
 <#
 .SYNOPSIS
-    Cyberwatch API Powershell Client.
+        Cyberwatch API Powershell Client.
 .DESCRIPTION
-    Send REST Query to Cyberwatch API
+        Send REST Query to Cyberwatch API
 .EXAMPLE
-    Get-CyberwatchApi -api_url $API_URL -api_key $API_KEY -secret_key $SECRET_KEY
+        Get-CyberwatchApi -api_url $API_URL -api_key $API_KEY -secret_key $SECRET_KEY
 .PARAMETER api_url
-    Your Cyberwatch instance base url
+        Your Cyberwatch instance base url
 #>
 Param    (
     [PARAMETER(Mandatory=$true)][string]$api_url = 'https://cyberwatch.local',
