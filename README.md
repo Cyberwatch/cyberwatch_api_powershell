@@ -8,6 +8,10 @@
 
 - Download and run `cyberwatch_api.ps1` with Powershell
 
+```powershell
+wget 'https://raw.githubusercontent.com/Cyberwatch/cyberwatch_api_powershell/master/cyberwatch_api.ps1' | iex
+```
+
 - Use your personal credentials :
 
 ```powershell
