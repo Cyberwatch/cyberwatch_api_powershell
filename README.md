@@ -115,6 +115,8 @@ server     : @{id=18d2fc32acf9572830685df73b8fcf62; hostname=test.com; last_comm
 ```
 
 - Use the client to retreive a remote access details (here the last created remote access) :
+
+```
 PS > $ram = $client.remote_accesses() | Select-Object -Last 1
 PS > $client.remote_access($ram.id)
 
