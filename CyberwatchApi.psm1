@@ -88,6 +88,32 @@ Class CbwApiClient {
     {
         return $this.request('DELETE', "/api/v2/servers/${id}")
     }
+
+    [object] remote_accesses()
+    {
+        return $this.request('GET', '/api/v2/remote_accesses')
+    }
+
+    [object] create_remote_access([Object]$content)
+    {
+        return $this.request('POST', '/api/v2/remote_accesses', $content)
+    }
+
+    [object] remote_access([string]$id)
+    {
+        return $this.request('GET', "/api/v2/remote_accesses/${id}")
+    }
+
+    [object] update_remote_access([string]$id, [Object]$content)
+    {
+        return $this.request('PATCH', "/api/v2/remote_accesses/${id}", $content)
+    }
+
+    [object] delete_remote_access([string]$id)
+    {
+        return $this.request('DELETE', "/api/v2/remote_accesses/${id}")
+    }
+
 }
 
 
