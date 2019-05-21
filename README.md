@@ -12,6 +12,12 @@
 wget 'https://raw.githubusercontent.com/Cyberwatch/cyberwatch_api_powershell/master/CyberwatchApi.psm1' | iex
 ```
 
+Or import it from Powershell Gallery:
+
+```powershell
+Install-Module -Scope CurrentUser -Name CyberwatchApi
+```
+
 - Use your personal credentials :
 
 ```powershell
@@ -26,7 +32,7 @@ PS> $API_URL = "https://cyberwatch.local"
 PS> $client = Get-CyberwatchApi -api_url $API_URL -api_key $API_KEY -secret_key $SECRET_KEY
 ```
 
-- Use the client to ping the API :
+- Use the client to ping the API:
 
 ```powershell
 PS> $client.ping()
@@ -36,7 +42,7 @@ uuid
 3445a974-6a21-4ec7-a504-31ccf5caf2e5
 ```
 
-- Use the client to retrive servers :
+- Use the client to retrive servers:
 
 ```powershell
 PS> $client.servers()
@@ -58,4 +64,91 @@ os                      : @{key=windows_10; name=Windows 10; arch=; eol=2025-10-
 ...
 
 
+```
+
+- Use the client to retreive remote accesses:
+
+```powershell
+PS> $client.remote_accesses()
+
+id         : 123
+type       : CbwRam::RemoteAccess::WinRm::WithNegotiate
+address    : example.com
+port       : 5985
+is_valid   : True
+created_at : 2019-03-15T09:03:06.000+01:00
+updated_at : 2019-05-10T22:57:10.000+02:00
+server     : @{id=0000000067e0ae7117b5ecb6c091cdf; hostname=example.com; last_communication=2019-03-15T10:44:24.000+01:00; reboot_required=True; 
+             agent_version=; remote_ip=172.25.0.1; boot_at=2019-03-15T08:46:34.000+01:00; 
+             criticality=criticality_medium; updates_count=0; cve_announcements_count=0; category=server}
+node       : @{id=1; name=mynode; created_at=2018-09-12T17:16:02.000+02:00; updated_at=2019-05-20T12:01:07.000+02:00}
+...
+
+
+```
+
+- Use the client to create a remote access:
+
+```powershell
+PS > $ram_params = @{
+        type= "CbwRam::RemoteAccess::WinRm::WithNegotiate"
+        address= "test.com"
+        port= "5985"
+        login= "myLogin"
+        password= "myPassword"
+        node= "myNodeName"
+}
+
+PS > $client.create_remote_access($ram_params)
+
+
+id         : 157
+type       : CbwRam::RemoteAccess::WinRm::WithNegotiate
+address    : test.com
+port       : 5985
+is_valid   : 
+created_at : 2019-05-21T13:44:29.000+02:00
+updated_at : 2019-05-21T13:44:29.000+02:00
+server     : @{id=18d2fc32acf9572830685df73b8fcf62; hostname=test.com; last_communication=; reboot_required=; agent_version=; remote_ip=test.com; 
+             boot_at=; criticality=criticality_medium; updates_count=0; cve_announcements_count=0; category=server}
+
+```
+
+- Use the client to retreive a remote access details (here the last created remote access) :
+PS > $ram = $client.remote_accesses() | Select-Object -Last 1
+PS > $client.remote_access($ram.id)
+
+id         : 157
+type       : CbwRam::RemoteAccess::WinRm::WithNegotiate
+address    : test.com
+port       : 5985
+is_valid   : False
+created_at : 2019-05-21T13:44:29.000+02:00
+updated_at : 2019-05-21T13:44:29.000+02:00
+server     : @{id=18d2fc32acf9572830685df73b8fcf62; hostname=test.com; last_communication=; reboot_required=; agent_version=; remote_ip=test.com; 
+             boot_at=; criticality=criticality_medium; updates_count=0; cve_announcements_count=0; category=server}
+
+```
+
+- Use the client to update a remote access (here the last created one):
+
+```powershell
+PS > $ram_params = @{
+        type= "CbwRam::RemoteAccess::WinRm::WithNegotiate"
+        address= "example.com"
+        port= "5985"
+        login= "myLogin"
+        password= "myPassword"
+        node= "myNodeName"
+}
+
+PS > $ram = $client.remote_accesses() | Select-Object -Last 1
+PS > $client.update_remote_access($ram.id, $ram_params)
+```
+
+- Use the client to delete a remote access (here the last created one):
+
+```powershell
+PS > $ram = $client.remote_accesses() | Select-Object -Last 1
+PS > $client.delete_remote_access($ram.id)
 ```
