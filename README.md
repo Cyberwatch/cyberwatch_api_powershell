@@ -154,3 +154,11 @@ PS > $client.update_remote_access($ram.id, $ram_params)
 PS > $ram = $client.remote_accesses() | Select-Object -Last 1
 PS > $client.delete_remote_access($ram.id)
 ```
+
+## Using the API with a self-signed certificate
+
+- Set up your client using the -trust_all_certificates parameter to allow requests to all certificates:
+
+```powershell
+PS> $client = Get-CyberwatchApi -api_url $API_URL -api_key $API_KEY -secret_key $SECRET_KEY -trust_all_certificates $true
+```

@@ -126,15 +126,33 @@ function Get-CyberwatchApi
         Send REST Query to Cyberwatch API
 .EXAMPLE
         Get-CyberwatchApi -api_url $API_URL -api_key $API_KEY -secret_key $SECRET_KEY
+        Get-CyberwatchApi -api_url $API_URL -api_key $API_KEY -secret_key $SECRET_KEY -trust_all_certificates $ALLOW_SELFSIGNED
 .PARAMETER api_url
         Your Cyberwatch instance base url
 #>
 Param    (
     [PARAMETER(Mandatory=$true)][string]$api_url = 'https://cyberwatch.local',
     [PARAMETER(Mandatory=$true)][string]$api_key,
-    [PARAMETER(Mandatory=$true)][string]$secret_key
+    [PARAMETER(Mandatory=$true)][string]$secret_key,
+    [PARAMETER(Mandatory=$false)][bool]$trust_all_certificates = $false
     )
 
-  return [CbwApiClient]::new($api_url, $api_key, $secret_key)
+    # Allow request to self-signed certificate
+    if($trust_all_certificates) {
+        add-type @"
+        using System.Net;
+        using System.Security.Cryptography.X509Certificates;
+        public class TrustAllCertsPolicy : ICertificatePolicy {
+          public bool CheckValidationResult(
+            ServicePoint srvPoint, X509Certificate certificate,
+            WebRequest request, int certificateProblem) {
+            return true;
+          }
+        }
+"@
+        [System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy
+    }
+
+    return [CbwApiClient]::new($api_url, $api_key, $secret_key)
 }
 
