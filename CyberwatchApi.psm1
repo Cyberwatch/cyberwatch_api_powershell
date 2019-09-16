@@ -89,6 +89,11 @@ Class CbwApiClient {
         return $this.request('DELETE', "/api/v2/servers/${id}")
     }
 
+    [object] server_schedule_updates([string]$id, [Object]$content)
+    {
+        return $this.request('POST', "/api/v2/servers/${id}/updates", $content)
+    }
+
     [object] remote_accesses()
     {
         return $this.request('GET', '/api/v2/remote_accesses')

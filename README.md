@@ -155,6 +155,17 @@ PS > $ram = $client.remote_accesses() | Select-Object -Last 1
 PS > $client.delete_remote_access($ram.id)
 ```
 
+- Use the client to schedule updates on a specific server (here 2 updates identified by its IDs):
+
+```powershell
+PS > $update_ids = @{91482, 94515)
+PS > $server_id = "c23673c6793f9fe5003a3e078cc5b1cc"
+
+# If start and end parameters are not specified, the server's deployment policy is used
+
+PS > $client.plan_updates($server_id, @{update_ids= $update_Ids; start="2019-09-14T03:00:00.000+02:00"; end="2019-09-14T09:00:00.000+02:00"})
+```
+
 ## Using the API with a self-signed certificate
 
 - Set up your client using the -trust_all_certificates parameter to allow requests to all certificates:
