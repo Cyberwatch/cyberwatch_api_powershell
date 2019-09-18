@@ -173,3 +173,7 @@ PS > $client.plan_updates($server_id, @{update_ids= $update_Ids; start="2019-09-
 ```powershell
 PS> $client = Get-CyberwatchApi -api_url $API_URL -api_key $API_KEY -secret_key $SECRET_KEY -trust_all_certificates $true
 ```
+
+## More examples
+
+See more examples and use cases in the [examples directory](examples)
