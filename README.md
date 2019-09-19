@@ -163,7 +163,7 @@ PS > $server_id = "c23673c6793f9fe5003a3e078cc5b1cc"
 
 # If start and end parameters are not specified, the server's deployment policy is used
 
-PS > $client.plan_updates($server_id, @{update_ids= $update_Ids; start="2019-09-14T03:00:00.000+02:00"; end="2019-09-14T09:00:00.000+02:00"})
+PS > $client.server_schedule_updates($server_id, @{update_ids= $update_Ids; start="2019-09-14T03:00:00.000+02:00"; end="2019-09-14T09:00:00.000+02:00"})
 ```
 
 ## Using the API with a self-signed certificate
