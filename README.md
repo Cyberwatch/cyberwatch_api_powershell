@@ -26,7 +26,7 @@ PS> $SECRET_KEY = "TmKvmH..."
 PS> $API_URL = "https://cyberwatch.local"
 ```
 
-- Create a `ApiClient` :
+- Create an `ApiClient` :
 
 ```powershell
 PS> $client = Get-CyberwatchApi -api_url $API_URL -api_key $API_KEY -secret_key $SECRET_KEY
@@ -42,7 +42,7 @@ uuid
 3445a974-6a21-4ec7-a504-31ccf5caf2e5
 ```
 
-- Use the client to retrive servers:
+- Use the client to retrieve servers:
 
 ```powershell
 PS> $client.servers()
@@ -66,7 +66,7 @@ os                      : @{key=windows_10; name=Windows 10; arch=; eol=2025-10-
 
 ```
 
-- Use the client to retreive remote accesses:
+- Use the client to retrieve remote accesses:
 
 ```powershell
 PS> $client.remote_accesses()
@@ -114,7 +114,7 @@ server     : @{id=18d2fc32acf9572830685df73b8fcf62; hostname=test.com; last_comm
 
 ```
 
-- Use the client to retreive a remote access details (here the last created remote access) :
+- Use the client to retrieve a remote access details (here the last created remote access) :
 
 ```
 PS > $ram = $client.remote_accesses() | Select-Object -Last 1
