@@ -166,6 +166,21 @@ PS > $server_id = "c23673c6793f9fe5003a3e078cc5b1cc"
 PS > $client.server_schedule_updates($server_id, @{update_ids= $update_Ids; start="2019-09-14T03:00:00.000+02:00"; end="2019-09-14T09:00:00.000+02:00"})
 ```
 
+- Use the client to retrieve all groups:
+
+```powershell
+PS> $client.groups()
+
+id          : 171
+name        : groupe1
+description : main group
+color       : #12AFCB
+created_at  : 2019-09-26T14:30:54.000+02:00
+updated_at  : 2019-09-26T14:30:54.000+02:00
+...
+
+```
+
 ## Using the API with a self-signed certificate
 
 - Set up your client using the -trust_all_certificates parameter to allow requests to all certificates:
