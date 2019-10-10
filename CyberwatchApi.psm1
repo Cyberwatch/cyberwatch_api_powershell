@@ -119,7 +119,7 @@ Class CbwApiClient {
         return $this.request('DELETE', "/api/v2/remote_accesses/${id}")
     }
 
-    [object] groups([string]$id)
+    [object] groups()
     {
         return $this.request('GET', "/api/v2/groups")
     }
