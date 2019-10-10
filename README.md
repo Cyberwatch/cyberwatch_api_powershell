@@ -181,6 +181,31 @@ updated_at  : 2019-09-26T14:30:54.000+02:00
 
 ```
 
+- Use the client to get details about a specific CVE:
+
+```powershell
+PS> $client.cve_announcements("CVE-2017-0146")
+
+cve_code      : CVE-2017-0146
+score         : 8.1
+score_v2      : 9.3
+score_v3      : 8.1
+level         : level_high
+published     : 2017-03-17T01:59:00.000+01:00
+content       : The SMBv1 server in Microsoft Windows Vista SP2; Windows Server 2008 SP2 and R2 SP1; Windows 
+                7 SP1; Windows 8.1; Windows Server 2012 Gold and R2; Windows RT 8.1; and Windows 10 Gold, 
+                1511, and 1607; and Windows Server 2016 allows remote attackers to execute arbitrary code 
+                via crafted packets, aka "Windows SMB Remote Code Execution Vulnerability." This 
+                vulnerability is different from those described in CVE-2017-0143, CVE-2017-0144, 
+                CVE-2017-0145, and CVE-2017-0148.
+last_modified : 2018-06-21T03:29:00.000+02:00
+created_at    : 2017-03-14T23:01:28.000+01:00
+updated_at    : 2019-09-15T08:57:01.000+02:00
+exploitable   : True
+servers       : {@{id=9cabadffe05cbdaedd3cee7ef763956f; host=AC1SRV0004; os=; updates=System.Object[];
+                active=False; ignored=False; comment=; fixed_at=2018-03-20T17:29:51.000+01:00}...}
+```
+
 ## Using the API with a self-signed certificate
 
 - Set up your client using the -trust_all_certificates parameter to allow requests to all certificates:
