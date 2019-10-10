@@ -128,6 +128,11 @@ Class CbwApiClient {
     {
         return $this.request('GET', "/api/v2/cve_announcements/${id}")
     }
+    
+    [object] users()
+    {
+        return $this.request('GET', "/api/v2/users")
+    }
 }
 
 
