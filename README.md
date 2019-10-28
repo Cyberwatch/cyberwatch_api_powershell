@@ -204,6 +204,23 @@ updated_at    : 2019-09-15T08:57:01.000+02:00
 exploitable   : True
 servers       : {@{id=9cabadffe05cbdaedd3cee7ef763956f; host=AC1SRV0004; os=; updates=System.Object[];
                 active=False; ignored=False; comment=; fixed_at=2018-03-20T17:29:51.000+01:00}...}
+
+```
+
+- Use the client to retrieve all users:
+
+```powershell
+PS> $client.users()
+
+id            : 1
+login         : test@cyberwatch.fr
+name          : Cyberwatch
+firstname     : Test
+email         : test@cyberwatch.fr
+locale        : en
+server_groups :  {@{id=79; name=Test; role=auditor}}
+...
+
 ```
 
 ## Using the API with a self-signed certificate
