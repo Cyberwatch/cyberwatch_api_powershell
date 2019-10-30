@@ -218,6 +218,7 @@ name          : Cyberwatch
 firstname     : Test
 email         : test@cyberwatch.fr
 locale        : en
+auth_provider : ldap
 server_groups :  {@{id=79; name=Test; role=auditor}}
 ...
 
