@@ -124,9 +124,9 @@ Class CbwApiClient {
         return $this.request('GET', "/api/v2/groups")
     }
 
-    [object] cve_announcements([string]$id)
+    [object] cve_announcement([string]$id)
     {
-        return $this.request('GET', "/api/v2/cve_announcements/${id}")
+        return $this.request('GET', "/api/v3/cve_announcements/${id}")
     }
     
     [object] users()

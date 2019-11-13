@@ -184,7 +184,7 @@ updated_at  : 2019-09-26T14:30:54.000+02:00
 - Use the client to get details about a specific CVE:
 
 ```powershell
-PS> $client.cve_announcements("CVE-2017-0146")
+PS> $client.cve_announcement("CVE-2017-0146")
 
 cve_code      : CVE-2017-0146
 score         : 8.1
