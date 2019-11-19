@@ -18,30 +18,71 @@ Param    (
     [PARAMETER(Mandatory=$true)][string]$secret_key,
     [PARAMETER(Mandatory=$true)][string]$http_method = 'GET',
     [PARAMETER(Mandatory=$true)][string]$request_URI = '/api/v3/ping',
-    [PARAMETER(Mandatory=$false)][Hashtable]$content
+    [PARAMETER(Mandatory=$false)][Hashtable]$content,
+    [PARAMETER(Mandatory=$false)][Hashtable]$query_params
     )
 
-    if($content) {
+    if ($content) {
         $content_type = 'application/json'
-        $json_body = $content | ConvertTo-Json
+        $body_content = $content | ConvertTo-Json
     }
-    else {
+    elseif ($query_params) {
         $content_type = ''
+        Add-Type -AssemblyName System.Web
+        $query_strings = [System.Web.HttpUtility]::ParseQueryString([String]::Empty)
+
+        foreach ($key in $query_params.Keys) {
+            $query_strings.Add($key, $query_params.$key)
+        }
+
+        $uriRequest = [System.UriBuilder]"${API_URL}${request_URI}"
+        $uriRequest.Query = $query_strings.ToString()
+        $params = $uriRequest.Query
+        $body_content = $query_params
     }
 
     $content_MD5 = ''
     $timestamp = [System.DateTime]::UtcNow.ToString('R')
-    $message = "$http_method,$content_type,$content_MD5,$request_URI,$timestamp"
+    $message = "$http_method,$content_type,$content_MD5,$request_URI$params,$timestamp"
     $hmacsha = New-Object System.Security.Cryptography.HMACSHA256
     $hmacsha.key = [Text.Encoding]::ASCII.GetBytes($SECRET_KEY)
     $signature = $hmacsha.ComputeHash([Text.Encoding]::ASCII.GetBytes($message))
     $signature = [Convert]::ToBase64String($signature)
 
-    Invoke-RestMethod -Uri "${API_URL}${request_URI}" -Method $http_method -Headers @{
-        "accept"="application/json";
-        "Date"=$timestamp
-        "Authorization"="Cyberwatch APIAuth-HMAC-SHA256 ${API_KEY}:$signature"
-    } -ContentType $content_type -Body $json_body
+    Invoke-WebRequest -Uri "${API_URL}${request_URI}" -Method $http_method -Headers @{
+        "accept"        = "application/json";
+        "Date"          = $timestamp
+        "Authorization" = "Cyberwatch APIAuth-HMAC-SHA256 ${API_KEY}:$signature"
+    } -ContentType $content_type -Body $body_content
+}
+
+Function SendApiRequestPagination
+{
+Param    (
+    [PARAMETER(Mandatory=$true)][string]$api_url = 'https://cyberwatch.local',
+    [PARAMETER(Mandatory=$true)][string]$api_key,
+    [PARAMETER(Mandatory=$true)][string]$secret_key,
+    [PARAMETER(Mandatory=$true)][string]$http_method = 'GET',
+    [PARAMETER(Mandatory=$true)][string]$request_URI = '/api/v3/ping',
+    [PARAMETER(Mandatory=$false)][Hashtable]$content,
+    [PARAMETER(Mandatory=$false)][Hashtable]$query_params = @{}
+    )
+
+    if ($query_params.ContainsKey("per_page") -eq $false) {
+        $query_params.Add("per_page", 100)
+    }
+
+    $response = SendApiRequest -api_url $api_url -api_key $api_key -secret_key $secret_key -http_method $http_method -request_URI $request_URI -content $content -query_params $query_params
+    if ($response.headers["link"] -match "[?&]page=(\d*)" -and $query_params.ContainsKey("page") -eq $false) {
+        $last_page_number = $matches[1]
+        1..$last_page_number | % {
+        $query_params["page"] = $_;
+        SendApiRequest -api_url $api_url -api_key $api_key -secret_key $secret_key -http_method $http_method -request_URI $request_URI -content $content -query_params $query_params | ConvertFrom-Json | % { $_ }
+        }
+    }
+
+    else { $response | ConvertFrom-JSON }
+
 }
 
 Class CbwApiClient {
@@ -57,11 +98,19 @@ Class CbwApiClient {
     }
 
     [object] request([string]$http_method, [string]$request_URI) {
-        return SendApiRequest -api_url $this.api_url -api_key $this.api_key -secret_key $this.secret_key -http_method $http_method -request_URI $request_URI
+        return SendApiRequest -api_url $this.api_url -api_key $this.api_key -secret_key $this.secret_key -http_method $http_method -request_URI $request_URI | ConvertFrom-JSON
     }
 
     [object] request([string]$http_method, [string]$request_URI, [Hashtable]$content) {
-        return SendApiRequest -api_url $this.api_url -api_key $this.api_key -secret_key $this.secret_key -http_method $http_method -request_URI $request_URI -content $content
+        return SendApiRequest  -api_url $this.api_url -api_key $this.api_key -secret_key $this.secret_key -http_method $http_method -request_URI $request_URI -content $content | ConvertFrom-JSON
+    }
+
+    [object] request_pagination([string]$http_method, [string]$request_URI) {
+        return SendApiRequestPagination -api_url $this.api_url -api_key $this.api_key -secret_key $this.secret_key -http_method $http_method -request_URI $request_URI
+    }
+
+    [object] request_pagination([string]$http_method, [string]$request_URI, [Hashtable]$query_params) {
+        return SendApiRequestPagination -api_url $this.api_url -api_key $this.api_key -secret_key $this.secret_key -http_method $http_method -request_URI $request_URI -query_params $query_params
     }
 
     [object] ping()
@@ -128,7 +177,17 @@ Class CbwApiClient {
     {
         return $this.request('GET', "/api/v3/cve_announcements/${id}")
     }
-    
+
+    [object] cve_announcements()
+    {
+        return $this.request_pagination('GET', "/api/v3/cve_announcements")
+    }
+
+    [object] cve_announcements([Hashtable]$query_params)
+    {
+        return $this.request_pagination('GET', "/api/v3/cve_announcements", $query_params)
+    }
+
     [object] users()
     {
         return $this.request('GET', "/api/v2/users")
