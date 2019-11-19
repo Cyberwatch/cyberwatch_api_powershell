@@ -207,6 +207,41 @@ servers       : {@{id=9cabadffe05cbdaedd3cee7ef763956f; host=AC1SRV0004; os=; up
 
 ```
 
+- Use the client to get a filtered list of CVEs or all of them:
+
+```powershell
+PS > $params = @{
+        level= "level_critical"
+        exploitable= "true"
+}
+
+PS > $client.cve_announcements($params)
+
+content       : Microsoft Internet Explorer 6 through 11 allows remote attackers to execute 
+                arbitrary code or cause a denial of service (memory corruption) via a crafted 
+                web site, aka "Internet Explorer Memory Corruption Vulnerability," a different 
+                vulnerability than CVE-2014-0282, CVE-2014-1779, CVE-2014-1799, CVE-2014-1803, 
+                and CVE-2014-2757.
+cve_code      : CVE-2014-1775
+last_modified : 2018-10-13T00:06:00.000+02:00
+level         : level_critical
+published     : 2014-06-11T06:56:00.000+02:00
+score         : 9.0
+score_v2      : 9.3
+score_v3      : 
+exploitable   : True
+cvss          : @{access_vector=access_vector_network; 
+                access_complexity=access_complexity_medium; 
+                authentication=authentication_none; 
+                confidentiality_impact=confidentiality_impact_complete; 
+                integrity_impact=integrity_impact_complete; 
+                availability_impact=availability_impact_complete}
+cvss_v3       : 
+cwe           : @{cwe_id=CWE-119}
+...
+
+```
+
 - Use the client to retrieve all users:
 
 ```powershell
