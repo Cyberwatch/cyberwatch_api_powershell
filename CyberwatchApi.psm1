@@ -17,7 +17,7 @@ Param    (
     [PARAMETER(Mandatory=$true)][string]$api_key,
     [PARAMETER(Mandatory=$true)][string]$secret_key,
     [PARAMETER(Mandatory=$true)][string]$http_method = 'GET',
-    [PARAMETER(Mandatory=$true)][string]$request_URI = '/api/v2/ping',
+    [PARAMETER(Mandatory=$true)][string]$request_URI = '/api/v3/ping',
     [PARAMETER(Mandatory=$false)][Hashtable]$content
     )
 
@@ -66,7 +66,7 @@ Class CbwApiClient {
 
     [object] ping()
     {
-        return $this.request('GET', '/api/v2/ping')
+        return $this.request('GET', '/api/v3/ping')
     }
 
     [object] servers()
