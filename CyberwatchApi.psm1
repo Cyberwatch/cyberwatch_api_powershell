@@ -192,6 +192,26 @@ Class CbwApiClient {
     {
         return $this.request('GET', "/api/v2/users")
     }
+
+    [object] nodes()
+    {
+        return $this.request_pagination('GET', "/api/v3/nodes")
+    }
+
+    [object] nodes([Hashtable]$filter)
+    {
+        return $this.request_pagination('GET', "/api/v3/nodes", $filter)
+    }
+
+    [object] node([string]$id)
+    {
+        return $this.request('GET', "/api/v3/nodes/${id}")
+    }
+
+    [object] delete_node([string]$id, [Object]$content)
+    {
+        return $this.request('DELETE', "/api/v3/nodes/${id}", $content)
+    }
 }
 
 
