@@ -220,7 +220,17 @@ Class CbwApiClient {
 
     [object] users()
     {
-        return $this.request('GET', "/api/v2/users")
+        return $this.request_pagination('GET', "/api/v3/users")
+    }
+
+    [object] users([Hashtable]$filter)
+    {
+        return $this.request_pagination('GET', "/api/v3/users", $filter)
+    }
+
+    [object] user([string]$id)
+    {
+        return $this.request('GET', "/api/v3/users/${id}")
     }
 
     [object] nodes()
