@@ -120,27 +120,27 @@ Class CbwApiClient {
 
     [object] servers()
     {
-        return $this.request('GET', '/api/v2/servers')
+        return $this.request_pagination('GET', '/api/v3/servers')
+    }
+
+    [object] servers([Object]$filters)
+    {
+        return $this.request_pagination('GET', '/api/v3/servers', $filters)
     }
 
     [object] server([string]$id)
     {
-        return $this.request('GET', "/api/v2/servers/${id}")
+        return $this.request('GET', "/api/v3/servers/${id}")
     }
 
     [object] update_server([string]$id, [Object]$content)
     {
-        return $this.request('PUT', "/api/v2/servers/${id}", $content)
+        return $this.request('PUT', "/api/v3/servers/${id}", $content)
     }
 
     [object] delete_server([string]$id)
     {
-        return $this.request('DELETE', "/api/v2/servers/${id}")
-    }
-
-    [object] server_schedule_updates([string]$id, [Object]$content)
-    {
-        return $this.request('POST', "/api/v2/servers/${id}/updates", $content)
+        return $this.request('DELETE', "/api/v3/servers/${id}")
     }
 
     [object] remote_accesses()
