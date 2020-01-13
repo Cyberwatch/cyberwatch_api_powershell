@@ -237,6 +237,36 @@ Class CbwApiClient {
     {
         return $this.request('DELETE', "/api/v3/nodes/${id}", $content)
     }
+
+    [object] hosts()
+    {
+        return $this.request_pagination('GET', "/api/v3/hosts")
+    }
+
+    [object] hosts([Object]$filters)
+    {
+        return $this.request_pagination('GET', '/api/v3/hosts', $filters)
+    }
+
+    [object] host([string]$id)
+    {
+        return $this.request('GET', "/api/v3/hosts/${id}")
+    }
+
+    [object] create_host([Object]$content)
+    {
+        return $this.request('POST', '/api/v3/hosts', $content)
+    }
+
+    [object] update_host([string]$id, [Object]$content)
+    {
+        return $this.request('PUT', "/api/v3/hosts/${id}", $content)
+    }
+
+    [object] delete_host([string]$id)
+    {
+        return $this.request('DELETE', "/api/v3/hosts/${id}")
+    }
 }
 
 
