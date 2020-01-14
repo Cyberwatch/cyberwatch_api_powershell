@@ -143,6 +143,11 @@ Class CbwApiClient {
         return $this.request('DELETE', "/api/v3/servers/${id}")
     }
 
+    [object] update_server_cve([string]$id, [string]$cve_code, [Object]$content)
+    {
+        return $this.request('PUT', "/api/v3/servers/${id}/cve_announcements/${cve_code}", $content)
+    }
+
     [object] remote_accesses()
     {
         return $this.request_pagination('GET', '/api/v3/remote_accesses')
