@@ -148,6 +148,11 @@ Class CbwApiClient {
         return $this.request('PUT', "/api/v3/servers/${id}/cve_announcements/${cve_code}", $content)
     }
 
+    [object] server_schedule_updates([string]$id, [Object]$content)
+    {
+        return $this.request('POST', "/api/v3/servers/${id}/updates", $content)
+    }
+
     [object] remote_accesses()
     {
         return $this.request_pagination('GET', '/api/v3/remote_accesses')
