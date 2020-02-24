@@ -233,6 +233,11 @@ Class CbwApiClient {
         return $this.request('PUT', "/api/v3/cve_announcements/${id}", $content)
     }
 
+    [object] delete_cve_announcement([string]$id)
+    {
+        return $this.request('DELETE', "/api/v3/cve_announcements/${id}")
+    }
+
     [object] users()
     {
         return $this.request_pagination('GET', "/api/v3/users")
