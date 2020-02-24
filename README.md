@@ -281,6 +281,50 @@ cvss_custom   : @{access_vector=access_vector_network; access_complexity=access_
 
 ```
 
+- Use the client to update cvss_custom/score_custom fields of a cve_announcement:
+
+```powershell
+$params = @{
+        "score_custom" = "7"
+        "access_complexity" = "access_complexity_low"
+}
+PS> $client.update_cve_announcement("CVE-2011-2498", $params)
+content       : The Linux kernel from v2.3.36 before v2.6.39 allows local unprivileged users to cause a 
+                denial of service (memory consumption) by triggering creation of PTE pages.
+cve_code      : CVE-2011-2498
+last_modified : 2020-02-20T14:07:00.000+01:00
+cvss_v3       : 
+cvss_custom   : @{access_vector=access_vector_network; access_complexity=access_complexity_low; 
+                privilege_required=privilege_required_none; user_interaction=user_interaction_none; 
+                scope=scope_changed; confidentiality_impact=confidentiality_impact_high; 
+                integrity_impact=integrity_impact_high; availability_impact=availability_impact_high}
+...
+```
+
+- Use the client to delete cvss_custom/score_custom fields of a cve_announcement:
+
+```powershell
+PS> $client.delete_cve_announcement("CVE-2011-2498")
+content       : The Linux kernel from v2.3.36 before v2.6.39 allows local unprivileged users to cause a 
+                denial of service (memory consumption) by triggering creation of PTE pages.
+cve_code      : CVE-2011-2498
+last_modified : 2020-02-20T14:07:00.000+01:00
+level         : level_unknown
+published     : 2020-02-20T05:15:00.000+01:00
+score         : 
+score_v2      : 
+score_v3      : 
+score_custom  : 
+exploitable   : False
+servers       : {}
+scannable     : False
+cvss          : 
+cvss_v3       : 
+cvss_custom   : 
+cwe           : 
+...
+```
+
 ## Using the API with a self-signed certificate
 
 - Set up your client using the -trust_all_certificates parameter to allow requests to all certificates:
