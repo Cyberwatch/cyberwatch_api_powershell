@@ -228,6 +228,11 @@ Class CbwApiClient {
         return $this.request_pagination('GET', "/api/v3/cve_announcements", $query_params)
     }
 
+    [object] update_cve_announcement([string]$id, [Object]$content)
+    {
+        return $this.request('PUT', "/api/v3/cve_announcements/${id}", $content)
+    }
+
     [object] users()
     {
         return $this.request_pagination('GET', "/api/v3/users")
