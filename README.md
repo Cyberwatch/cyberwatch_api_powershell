@@ -4,6 +4,10 @@
 
 - [ ] Powershell v5
 
+## API Documentation
+
+See the full API documentation [here](https://docs.cyberwatch.fr/)
+
 ## Usage
 
 - Download and run `CyberwatchApi.psm1` with Powershell
@@ -323,6 +327,103 @@ cvss_v3       :
 cvss_custom   : 
 cwe           : 
 ...
+```
+
+- Use the client to retrieve security issues:
+
+```powershell
+PS> $client.security_issues()
+
+id                : 129
+type              : SecurityIssues::Custom
+sid               : 91815
+level             : level_unknown
+title             : Web Application Sitemap
+score             : 0.0
+description       : The remote web server contains linkable content that can be used to 
+                    gather information about a target.
+servers           : {}
+cve_announcements : {}
+...
+
+
+```
+
+- Use the client to create a security issue:
+
+```powershell
+PS > $params = @{
+    "sid" = "security_issue_1"
+}
+
+PS > $client.create_remote_access($params)
+
+id                : 5
+type              : 
+sid               : security_issue_1
+level             : level_info
+title             : 
+description       : 
+servers           : {}
+cve_announcements : {}
+
+```
+
+- Use the client to retrieve a specific security issue details :
+
+```
+PS > $client.remote_access(129)
+
+id                : 129
+type              : SecurityIssues::Custom
+sid               : 91815
+level             : level_unknown
+title             : Web Application Sitemap
+score             : 0.0
+description       : The remote web server contains linkable content that can be used to 
+                    gather information about a target.
+servers           : {}
+cve_announcements : {}
+
+```
+
+- Use the client to update a security issue :
+
+```powershell
+PS > $INFO = {'level': 'level_critical'}
+}
+
+PS > $client.update_security_issue(129, $INFO)
+
+id                : 129
+type              : SecurityIssues::Custom
+sid               : 91815
+level             : level_critical
+title             : Web Application Sitemap
+score             : 0.0
+description       : The remote web server contains linkable content that can be used to 
+                    gather information about a target.
+servers           : {}
+cve_announcements : {}
+
+```
+
+- Use the client to delete a security issue :
+
+```powershell
+PS > $client.delete_security_issue(129)
+
+id                : 129
+type              : SecurityIssues::Custom
+sid               : 91815
+level             : level_critical
+title             : Web Application Sitemap
+score             : 0.0
+description       : The remote web server contains linkable content that can be used to 
+                    gather information about a target.
+servers           : {}
+cve_announcements : {}
+
 ```
 
 ## Using the API with a self-signed certificate

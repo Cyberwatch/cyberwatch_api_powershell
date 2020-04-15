@@ -302,6 +302,36 @@ Class CbwApiClient {
     {
         return $this.request('DELETE', "/api/v3/hosts/${id}")
     }
+
+    [object] security_issues()
+    {
+        return $this.request('GET', "/api/v3/security_issues")
+    }
+
+    [object] security_issues([Object]$filters)
+    {
+        return $this.request_pagination('GET', '/api/v3/security_issues', $filters)
+    }
+
+    [object] security_issue([string]$id)
+    {
+        return $this.request('GET', "/api/v3/security_issues/${id}")
+    }
+
+    [object] create_security_issue([Object]$content)
+    {
+        return $this.request('POST', '/api/v3/security_issues', $content)
+    }
+
+    [object] update_security_issue([string]$id, [Object]$content)
+    {
+        return $this.request('PUT', "/api/v3/security_issues/${id}", $content)
+    }
+
+    [object] delete_security_issue([string]$id)
+    {
+        return $this.request('DELETE', "/api/v3/security_issues/${id}")
+    }
 }
 
 
