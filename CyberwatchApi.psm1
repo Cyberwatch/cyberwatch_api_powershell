@@ -332,6 +332,26 @@ Class CbwApiClient {
     {
         return $this.request('DELETE', "/api/v3/security_issues/${id}")
     }
+
+    [object] agents()
+    {
+        return $this.request_pagination('GET', "/api/v3/agents")
+    }
+
+    [object] agents([Hashtable]$filter)
+    {
+        return $this.request_pagination('GET', "/api/v3/agents", $filter)
+    }
+
+    [object] agent([string]$id)
+    {
+        return $this.request('GET', "/api/v3/agents/${id}")
+    }
+
+    [object] delete_agent([string]$id)
+    {
+        return $this.request('DELETE', "/api/v3/agents/${id}")
+    }
 }
 
 
