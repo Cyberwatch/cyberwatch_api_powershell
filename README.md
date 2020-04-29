@@ -426,6 +426,50 @@ cve_announcements : {}
 
 ```
 
+- Use the client to retrieve all agents:
+
+```powershell
+PS> $client.agents()
+
+id                 : 21
+server_id          : 851
+node_id            : 1
+version            : 3.99.13770
+remote_ip          : 192.168.1.126
+last_communication : 2018-08-06T13:49:10.000+02:00
+
+id                 : 22
+...
+```
+
+- Use the client to retrieve a specific agent details :
+
+```powershell
+PS > $client.agent(58)
+
+id                 : 58
+server_id          : 997
+node_id            : 1
+version            : 3.99.23113
+remote_ip          : 192.168.2.18
+last_communication : 2019-08-22T14:30:17.000+02:00
+
+```
+
+- Use the client to delete an agent :
+
+```powershell
+PS > $client.delete_agent(58)
+
+id                 : 58
+server_id          : 997
+node_id            : 1
+version            : 3.99.23113
+remote_ip          : 192.168.2.18
+last_communication : 2019-08-22T14:30:17.000+02:00
+
+```
+
 ## Using the API with a self-signed certificate
 
 - Set up your client using the -trust_all_certificates parameter to allow requests to all certificates:
