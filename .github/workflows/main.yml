@@ -1,0 +1,15 @@
+name: Main Workflow
+on: [push, pull_request]
+
+jobs:
+  code_style:
+    name: Code Style Analysis
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: |
+          Install-Module -Name PSScriptAnalyzer -Force
+      - name: PSScriptAnalyzer
+        run: |
+          Invoke-ScriptAnalyzer -Path . -Recurse -Setting .PSScriptAnalyzerSettings.psd1 -EnableExit
