@@ -470,6 +470,22 @@ last_communication : 2019-08-22T14:30:17.000+02:00
 
 ```
 
+- Use the client to retrieve all scanning scripts for Importer:
+
+```powershell
+PS> $client.fetch_importer_scripts()
+
+id type                                           
+-- ----                                           
+ 0 Scripts::Linux::InfoScript                     
+ 1 Scripts::Windows::InfoScript                   
+ 2 Scripts::Windows::PackagesScript               
+ 3 Scripts::Windows::WsusInfoScript               
+ 4 Scripts::Windows::WuaScript                    
+...
+
+```
+
 ## Using the API with a self-signed certificate
 
 - Set up your client using the -trust_all_certificates parameter to allow requests to all certificates:

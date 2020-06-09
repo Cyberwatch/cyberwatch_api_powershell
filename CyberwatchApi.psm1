@@ -353,6 +353,16 @@ Class CbwApiClient {
         return $this.request('DELETE', "/api/v3/agents/${id}")
     }
 
+    [object] fetch_importer_scripts()
+    {
+        return $this.request('GET', "/api/v2/cbw_scans/scripts")
+    }
+
+    [object] fetch_importer_script([string]$id)
+    {
+        return $this.request('GET', "/api/v2/cbw_scans/scripts/${id}")
+    }
+
     [object] send_result_importer([Object]$content)
     {
         return $this.request('POST', "/api/v2/cbw_scans/scripts", $content)
