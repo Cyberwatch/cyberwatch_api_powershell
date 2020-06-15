@@ -53,7 +53,7 @@ Param    (
         "accept"        = "application/json";
         "Date"          = $timestamp
         "Authorization" = "Cyberwatch APIAuth-HMAC-SHA256 ${API_KEY}:$signature"
-    } -ContentType $content_type -Body $body_content
+    } -ContentType $content_type -Body $body_content -UseBasicParsing
 }
 
 Function SendApiRequestPagination
