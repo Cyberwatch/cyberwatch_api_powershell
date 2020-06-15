@@ -13,11 +13,11 @@ Function SendApiRequest
         Your Cyberwatch instance base url
 #>
 Param    (
-    [PARAMETER(Mandatory=$true)][string]$api_url = 'https://cyberwatch.local',
+    [PARAMETER(Mandatory=$true)][string]$api_url,
     [PARAMETER(Mandatory=$true)][string]$api_key,
     [PARAMETER(Mandatory=$true)][string]$secret_key,
-    [PARAMETER(Mandatory=$true)][string]$http_method = 'GET',
-    [PARAMETER(Mandatory=$true)][string]$request_URI = '/api/v3/ping',
+    [PARAMETER(Mandatory=$true)][string]$http_method,
+    [PARAMETER(Mandatory=$true)][string]$request_URI,
     [PARAMETER(Mandatory=$false)][Hashtable]$content,
     [PARAMETER(Mandatory=$false)][Hashtable]$query_params
     )
@@ -59,11 +59,11 @@ Param    (
 Function SendApiRequestPagination
 {
 Param    (
-    [PARAMETER(Mandatory=$true)][string]$api_url = 'https://cyberwatch.local',
+    [PARAMETER(Mandatory=$true)][string]$api_url,
     [PARAMETER(Mandatory=$true)][string]$api_key,
     [PARAMETER(Mandatory=$true)][string]$secret_key,
-    [PARAMETER(Mandatory=$true)][string]$http_method = 'GET',
-    [PARAMETER(Mandatory=$true)][string]$request_URI = '/api/v3/ping',
+    [PARAMETER(Mandatory=$true)][string]$http_method,
+    [PARAMETER(Mandatory=$true)][string]$request_URI,
     [PARAMETER(Mandatory=$false)][Hashtable]$content,
     [PARAMETER(Mandatory=$false)][Hashtable]$query_params = @{}
     )
@@ -75,9 +75,9 @@ Param    (
     $response = SendApiRequest -api_url $api_url -api_key $api_key -secret_key $secret_key -http_method $http_method -request_URI $request_URI -content $content -query_params $query_params
     if ($response.headers["link"] -match "[?&]page=(\d*)" -and $query_params.ContainsKey("page") -eq $false) {
         $last_page_number = $matches[1]
-        1..$last_page_number | % {
+        1..$last_page_number | ForEach-Object {
         $query_params["page"] = $_;
-        SendApiRequest -api_url $api_url -api_key $api_key -secret_key $secret_key -http_method $http_method -request_URI $request_URI -content $content -query_params $query_params | ConvertFrom-Json | % { $_ }
+        SendApiRequest -api_url $api_url -api_key $api_key -secret_key $secret_key -http_method $http_method -request_URI $request_URI -content $content -query_params $query_params | ConvertFrom-Json | ForEach-Object { $_ }
         }
     }
 
@@ -389,7 +389,7 @@ function Get-CyberwatchApi
         Your Cyberwatch instance base url
 #>
 Param    (
-    [PARAMETER(Mandatory=$true)][string]$api_url = 'https://cyberwatch.local',
+    [PARAMETER(Mandatory=$true)][string]$api_url,
     [PARAMETER(Mandatory=$true)][string]$api_key,
     [PARAMETER(Mandatory=$true)][string]$secret_key,
     [PARAMETER(Mandatory=$false)][bool]$trust_all_certificates = $false

@@ -69,7 +69,7 @@ $available_scripts | ForEach-Object{
 
     if ($scanning_script.type -like '*Linux*') {
         $scanning_script_path = $scanning_script_path + '.sh'
-    
+
     } elseif ($scanning_script.type -like '*Windows*') {
         $scanning_script_path = $scanning_script_path + '.ps1'
     }
