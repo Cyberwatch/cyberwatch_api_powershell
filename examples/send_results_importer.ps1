@@ -30,7 +30,7 @@ $client = Get-CyberwatchApi -api_url $API_URL -api_key $API_KEY -secret_key $SEC
 Write-Output "INFO: Checking API connection and credentials..."
 try
 {
-    $uuid = $client.ping().uuid
+    $client.ping().uuid
     Write-Output "INFO: OK."
 }
 catch
@@ -44,7 +44,7 @@ Write-Output "INFO: Searching for available results..."
 $available_results = Get-ChildItem -Recurse -File -Path ".\upload"
 Write-Output "INFO: Done. Found $($available_results.count) results to be processed and sent for analysis."
 
-$available_results | % {
+$available_results | ForEach-Object {
     Write-Output "INFO: Reading $($_.FullName) content..."
     $content = [IO.File]::ReadAllText($_.FullName)
     Write-Output "INFO: Sending $($_.FullName) content to the API..."
