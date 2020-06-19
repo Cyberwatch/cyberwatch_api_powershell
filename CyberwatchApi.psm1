@@ -138,6 +138,11 @@ Class CbwApiClient {
         return $this.request('PUT', "/api/v3/servers/${id}", $content)
     }
 
+    [object] refresh_server([string]$id)
+    {
+        return $this.request('PUT', "/api/v3/servers/${id}/refresh")
+    }
+
     [object] delete_server([string]$id)
     {
         return $this.request('DELETE', "/api/v3/servers/${id}")
