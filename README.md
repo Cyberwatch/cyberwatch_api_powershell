@@ -95,12 +95,12 @@ node       : @{id=1; name=mynode; created_at=2018-09-12T17:16:02.000+02:00; upda
 
 ```powershell
 PS > $ram_params = @{
-        type= "CbwRam::RemoteAccess::WinRm::WithNegotiate"
-        address= "test.com"
-        port= "5985"
-        login= "myLogin"
-        password= "myPassword"
-        node= "myNodeName"
+        type = "CbwRam::RemoteAccess::WinRm::WithNegotiate"
+        address = "test.com"
+        port = "5985"
+        login = "myLogin"
+        password = "myPassword"
+        node = "myNodeName"
 }
 
 PS > $client.create_remote_access($ram_params)
@@ -140,12 +140,12 @@ server     : @{id=18d2fc32acf9572830685df73b8fcf62; hostname=test.com; last_comm
 
 ```powershell
 PS > $ram_params = @{
-        type= "CbwRam::RemoteAccess::WinRm::WithNegotiate"
-        address= "example.com"
-        port= "5985"
-        login= "myLogin"
-        password= "myPassword"
-        node= "myNodeName"
+        type = "CbwRam::RemoteAccess::WinRm::WithNegotiate"
+        address = "example.com"
+        port = "5985"
+        login = "myLogin"
+        password = "myPassword"
+        node = "myNodeName"
 }
 
 PS > $ram = $client.remote_accesses() | Select-Object -Last 1
@@ -205,7 +205,7 @@ content       : The SMBv1 server in Microsoft Windows Vista SP2; Windows Server 
 last_modified : 2018-06-21T03:29:00.000+02:00
 created_at    : 2017-03-14T23:01:28.000+01:00
 updated_at    : 2019-09-15T08:57:01.000+02:00
-exploitable   : True
+exploit_code_maturity   : high
 servers       : {@{id=9cabadffe05cbdaedd3cee7ef763956f; host=AC1SRV0004; os=; updates=System.Object[];
                 active=False; ignored=False; comment=; fixed_at=2018-03-20T17:29:51.000+01:00}...}
 
@@ -215,8 +215,8 @@ servers       : {@{id=9cabadffe05cbdaedd3cee7ef763956f; host=AC1SRV0004; os=; up
 
 ```powershell
 PS > $params = @{
-        level= "level_critical"
-        exploitable= "true"
+        level = "level_critical"
+        exploitable = "true"
 }
 
 PS > $client.cve_announcements($params)
@@ -233,7 +233,7 @@ published     : 2014-06-11T06:56:00.000+02:00
 score         : 9.0
 score_v2      : 9.3
 score_v3      : 
-exploitable   : True
+exploit_code_maturity   : functional
 cvss          : @{access_vector=access_vector_network; 
                 access_complexity=access_complexity_medium; 
                 authentication=authentication_none; 
@@ -319,7 +319,7 @@ score         :
 score_v2      : 
 score_v3      : 
 score_custom  : 
-exploitable   : False
+exploit_code_maturity   : proof_of_concept
 servers       : {}
 scannable     : False
 cvss          : 
