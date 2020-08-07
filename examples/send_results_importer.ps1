@@ -48,7 +48,8 @@ $available_results | ForEach-Object {
     Write-Output "INFO: Reading $($_.FullName) content..."
     $content = [IO.File]::ReadAllText($_.FullName)
     Write-Output "INFO: Sending $($_.FullName) content to the API..."
-    $client.send_result_importer(@{ output = $content })
+    # You can specify groups separated by commas ","
+    $client.send_result_importer(@{ output = $content ; groups = "" })
     Write-Output "INFO: Done."
 }
 
