@@ -82,8 +82,8 @@ port       : 5985
 is_valid   : True
 created_at : 2019-03-15T09:03:06.000+01:00
 updated_at : 2019-05-10T22:57:10.000+02:00
-server     : @{id=0000000067e0ae7117b5ecb6c091cdf; hostname=example.com; last_communication=2019-03-15T10:44:24.000+01:00; reboot_required=True; 
-             agent_version=; remote_ip=172.25.0.1; boot_at=2019-03-15T08:46:34.000+01:00; 
+server     : @{id=0000000067e0ae7117b5ecb6c091cdf; hostname=example.com; last_communication=2019-03-15T10:44:24.000+01:00; reboot_required=True;
+             agent_version=; remote_ip=172.25.0.1; boot_at=2019-03-15T08:46:34.000+01:00;
              criticality=criticality_medium; updates_count=0; cve_announcements_count=0; category=server}
 node       : @{id=1; name=mynode; created_at=2018-09-12T17:16:02.000+02:00; updated_at=2019-05-20T12:01:07.000+02:00}
 ...
@@ -100,7 +100,7 @@ PS > $ram_params = @{
         port = "5985"
         login = "myLogin"
         password = "myPassword"
-        node = "myNodeName"
+        node_id = "1"
 }
 
 PS > $client.create_remote_access($ram_params)
@@ -110,10 +110,10 @@ id         : 157
 type       : CbwRam::RemoteAccess::WinRm::WithNegotiate
 address    : test.com
 port       : 5985
-is_valid   : 
+is_valid   :
 created_at : 2019-05-21T13:44:29.000+02:00
 updated_at : 2019-05-21T13:44:29.000+02:00
-server     : @{id=18d2fc32acf9572830685df73b8fcf62; hostname=test.com; last_communication=; reboot_required=; agent_version=; remote_ip=test.com; 
+server     : @{id=18d2fc32acf9572830685df73b8fcf62; hostname=test.com; last_communication=; reboot_required=; agent_version=; remote_ip=test.com;
              boot_at=; criticality=criticality_medium; updates_count=0; cve_announcements_count=0; category=server}
 
 ```
@@ -131,7 +131,7 @@ port       : 5985
 is_valid   : False
 created_at : 2019-05-21T13:44:29.000+02:00
 updated_at : 2019-05-21T13:44:29.000+02:00
-server     : @{id=18d2fc32acf9572830685df73b8fcf62; hostname=test.com; last_communication=; reboot_required=; agent_version=; remote_ip=test.com; 
+server     : @{id=18d2fc32acf9572830685df73b8fcf62; hostname=test.com; last_communication=; reboot_required=; agent_version=; remote_ip=test.com;
              boot_at=; criticality=criticality_medium; updates_count=0; cve_announcements_count=0; category=server}
 
 ```
@@ -196,11 +196,11 @@ score_v2      : 9.3
 score_v3      : 8.1
 level         : level_high
 published     : 2017-03-17T01:59:00.000+01:00
-content       : The SMBv1 server in Microsoft Windows Vista SP2; Windows Server 2008 SP2 and R2 SP1; Windows 
-                7 SP1; Windows 8.1; Windows Server 2012 Gold and R2; Windows RT 8.1; and Windows 10 Gold, 
-                1511, and 1607; and Windows Server 2016 allows remote attackers to execute arbitrary code 
-                via crafted packets, aka "Windows SMB Remote Code Execution Vulnerability." This 
-                vulnerability is different from those described in CVE-2017-0143, CVE-2017-0144, 
+content       : The SMBv1 server in Microsoft Windows Vista SP2; Windows Server 2008 SP2 and R2 SP1; Windows
+                7 SP1; Windows 8.1; Windows Server 2012 Gold and R2; Windows RT 8.1; and Windows 10 Gold,
+                1511, and 1607; and Windows Server 2016 allows remote attackers to execute arbitrary code
+                via crafted packets, aka "Windows SMB Remote Code Execution Vulnerability." This
+                vulnerability is different from those described in CVE-2017-0143, CVE-2017-0144,
                 CVE-2017-0145, and CVE-2017-0148.
 last_modified : 2018-06-21T03:29:00.000+02:00
 created_at    : 2017-03-14T23:01:28.000+01:00
@@ -221,10 +221,10 @@ PS > $params = @{
 
 PS > $client.cve_announcements($params)
 
-content       : Microsoft Internet Explorer 6 through 11 allows remote attackers to execute 
-                arbitrary code or cause a denial of service (memory corruption) via a crafted 
-                web site, aka "Internet Explorer Memory Corruption Vulnerability," a different 
-                vulnerability than CVE-2014-0282, CVE-2014-1779, CVE-2014-1799, CVE-2014-1803, 
+content       : Microsoft Internet Explorer 6 through 11 allows remote attackers to execute
+                arbitrary code or cause a denial of service (memory corruption) via a crafted
+                web site, aka "Internet Explorer Memory Corruption Vulnerability," a different
+                vulnerability than CVE-2014-0282, CVE-2014-1779, CVE-2014-1799, CVE-2014-1803,
                 and CVE-2014-2757.
 cve_code      : CVE-2014-1775
 last_modified : 2018-10-13T00:06:00.000+02:00
@@ -232,15 +232,15 @@ level         : level_critical
 published     : 2014-06-11T06:56:00.000+02:00
 score         : 9.0
 score_v2      : 9.3
-score_v3      : 
+score_v3      :
 exploit_code_maturity   : functional
-cvss          : @{access_vector=access_vector_network; 
-                access_complexity=access_complexity_medium; 
-                authentication=authentication_none; 
-                confidentiality_impact=confidentiality_impact_complete; 
-                integrity_impact=integrity_impact_complete; 
+cvss          : @{access_vector=access_vector_network;
+                access_complexity=access_complexity_medium;
+                authentication=authentication_none;
+                confidentiality_impact=confidentiality_impact_complete;
+                integrity_impact=integrity_impact_complete;
                 availability_impact=availability_impact_complete}
-cvss_v3       : 
+cvss_v3       :
 cwe           : @{cwe_id=CWE-119}
 ...
 
@@ -272,14 +272,14 @@ $params = @{
 }
 PS> $client.update_cve_announcement("CVE-2011-2498", $params)
 
-content       : The Linux kernel from v2.3.36 before v2.6.39 allows local unprivileged users to cause a 
+content       : The Linux kernel from v2.3.36 before v2.6.39 allows local unprivileged users to cause a
                 denial of service (memory consumption) by triggering creation of PTE pages.
 cve_code      : CVE-2011-2498
 last_modified : 2020-02-20T14:07:00.000+01:00
-cvss_v3       : 
-cvss_custom   : @{access_vector=access_vector_network; access_complexity=access_complexity_low; 
-                privilege_required=privilege_required_none; user_interaction=user_interaction_none; 
-                scope=scope_changed; confidentiality_impact=confidentiality_impact_high; 
+cvss_v3       :
+cvss_custom   : @{access_vector=access_vector_network; access_complexity=access_complexity_low;
+                privilege_required=privilege_required_none; user_interaction=user_interaction_none;
+                scope=scope_changed; confidentiality_impact=confidentiality_impact_high;
                 integrity_impact=integrity_impact_high; availability_impact=availability_impact_high}
 ...
 
@@ -293,14 +293,14 @@ $params = @{
         "access_complexity" = "access_complexity_low"
 }
 PS> $client.update_cve_announcement("CVE-2011-2498", $params)
-content       : The Linux kernel from v2.3.36 before v2.6.39 allows local unprivileged users to cause a 
+content       : The Linux kernel from v2.3.36 before v2.6.39 allows local unprivileged users to cause a
                 denial of service (memory consumption) by triggering creation of PTE pages.
 cve_code      : CVE-2011-2498
 last_modified : 2020-02-20T14:07:00.000+01:00
-cvss_v3       : 
-cvss_custom   : @{access_vector=access_vector_network; access_complexity=access_complexity_low; 
-                privilege_required=privilege_required_none; user_interaction=user_interaction_none; 
-                scope=scope_changed; confidentiality_impact=confidentiality_impact_high; 
+cvss_v3       :
+cvss_custom   : @{access_vector=access_vector_network; access_complexity=access_complexity_low;
+                privilege_required=privilege_required_none; user_interaction=user_interaction_none;
+                scope=scope_changed; confidentiality_impact=confidentiality_impact_high;
                 integrity_impact=integrity_impact_high; availability_impact=availability_impact_high}
 ...
 ```
@@ -309,23 +309,23 @@ cvss_custom   : @{access_vector=access_vector_network; access_complexity=access_
 
 ```powershell
 PS> $client.delete_cve_announcement("CVE-2011-2498")
-content       : The Linux kernel from v2.3.36 before v2.6.39 allows local unprivileged users to cause a 
+content       : The Linux kernel from v2.3.36 before v2.6.39 allows local unprivileged users to cause a
                 denial of service (memory consumption) by triggering creation of PTE pages.
 cve_code      : CVE-2011-2498
 last_modified : 2020-02-20T14:07:00.000+01:00
 level         : level_unknown
 published     : 2020-02-20T05:15:00.000+01:00
-score         : 
-score_v2      : 
-score_v3      : 
-score_custom  : 
+score         :
+score_v2      :
+score_v3      :
+score_custom  :
 exploit_code_maturity   : proof_of_concept
 servers       : {}
 scannable     : False
-cvss          : 
-cvss_v3       : 
-cvss_custom   : 
-cwe           : 
+cvss          :
+cvss_v3       :
+cvss_custom   :
+cwe           :
 ...
 ```
 
@@ -340,7 +340,7 @@ sid               : 91815
 level             : level_unknown
 title             : Web Application Sitemap
 score             : 0.0
-description       : The remote web server contains linkable content that can be used to 
+description       : The remote web server contains linkable content that can be used to
                     gather information about a target.
 servers           : {}
 cve_announcements : {}
@@ -359,11 +359,11 @@ PS > $params = @{
 PS > $client.create_remote_access($params)
 
 id                : 5
-type              : 
+type              :
 sid               : security_issue_1
 level             : level_info
-title             : 
-description       : 
+title             :
+description       :
 servers           : {}
 cve_announcements : {}
 
@@ -380,7 +380,7 @@ sid               : 91815
 level             : level_unknown
 title             : Web Application Sitemap
 score             : 0.0
-description       : The remote web server contains linkable content that can be used to 
+description       : The remote web server contains linkable content that can be used to
                     gather information about a target.
 servers           : {}
 cve_announcements : {}
@@ -401,7 +401,7 @@ sid               : 91815
 level             : level_critical
 title             : Web Application Sitemap
 score             : 0.0
-description       : The remote web server contains linkable content that can be used to 
+description       : The remote web server contains linkable content that can be used to
                     gather information about a target.
 servers           : {}
 cve_announcements : {}
@@ -419,7 +419,7 @@ sid               : 91815
 level             : level_critical
 title             : Web Application Sitemap
 score             : 0.0
-description       : The remote web server contains linkable content that can be used to 
+description       : The remote web server contains linkable content that can be used to
                     gather information about a target.
 servers           : {}
 cve_announcements : {}
@@ -475,13 +475,13 @@ last_communication : 2019-08-22T14:30:17.000+02:00
 ```powershell
 PS> $client.fetch_importer_scripts()
 
-id type                                           
--- ----                                           
- 0 Scripts::Linux::InfoScript                     
- 1 Scripts::Windows::InfoScript                   
- 2 Scripts::Windows::PackagesScript               
- 3 Scripts::Windows::WsusInfoScript               
- 4 Scripts::Windows::WuaScript                    
+id type
+-- ----
+ 0 Scripts::Linux::InfoScript
+ 1 Scripts::Windows::InfoScript
+ 2 Scripts::Windows::PackagesScript
+ 3 Scripts::Windows::WsusInfoScript
+ 4 Scripts::Windows::WuaScript
 ...
 
 ```
