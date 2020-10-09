@@ -27,7 +27,7 @@ Param    (
         $body_content = $content | ConvertTo-Json
     }
     elseif ($query_params) {
-        $content_type = 'application/json'
+        $content_type = ''
         Add-Type -AssemblyName System.Web
         $query_strings = [System.Web.HttpUtility]::ParseQueryString([String]::Empty)
 
@@ -37,7 +37,8 @@ Param    (
 
         $uriRequest = [System.UriBuilder]"${API_URL}${request_URI}"
         $uriRequest.Query = $query_strings.ToString()
-        $body_content = $query_params | ConvertTo-Json
+        $params = $uriRequest.Query
+        $body_content = $query_params
     }
 
     $content_MD5 = ''
@@ -63,6 +64,7 @@ Param    (
     [PARAMETER(Mandatory=$true)][string]$secret_key,
     [PARAMETER(Mandatory=$true)][string]$http_method,
     [PARAMETER(Mandatory=$true)][string]$request_URI,
+    [PARAMETER(Mandatory=$false)][Hashtable]$content,
     [PARAMETER(Mandatory=$false)][Hashtable]$query_params = @{}
     )
 
@@ -70,14 +72,12 @@ Param    (
         $query_params.Add("per_page", 100)
     }
 
-    $response = SendApiRequest -api_url $api_url -api_key $api_key -secret_key $secret_key -http_method $http_method -request_URI $request_URI -query_params $query_params
-    if ($response.headers["link"]) {
-        if ($response.headers["link"][0] -match '[?&]page=(\d*)>; rel="last"' -and $query_params.ContainsKey("page") -eq $false) {
-            $last_page_number = $matches[1]
-            1..$last_page_number | ForEach-Object {
-            $query_params["page"] = $_;
-            SendApiRequest -api_url $api_url -api_key $api_key -secret_key $secret_key -http_method $http_method -request_URI $request_URI -query_params $query_params | ConvertFrom-Json | ForEach-Object { $_ }
-            }
+    $response = SendApiRequest -api_url $api_url -api_key $api_key -secret_key $secret_key -http_method $http_method -request_URI $request_URI -content $content -query_params $query_params
+    if ($response.headers["link"] -match "[?&]page=(\d*)" -and $query_params.ContainsKey("page") -eq $false) {
+        $last_page_number = $matches[1]
+        1..$last_page_number | ForEach-Object {
+        $query_params["page"] = $_;
+        SendApiRequest -api_url $api_url -api_key $api_key -secret_key $secret_key -http_method $http_method -request_URI $request_URI -content $content -query_params $query_params | ConvertFrom-Json | ForEach-Object { $_ }
         }
     }
 
