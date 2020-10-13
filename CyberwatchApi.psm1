@@ -22,6 +22,8 @@ Param    (
     [PARAMETER(Mandatory=$false)][Hashtable]$query_params
     )
 
+    $uri = "${API_URL}${request_URI}"
+
     if ($content) {
         $content_type = 'application/json'
         $body_content = $content | ConvertTo-Json
@@ -31,14 +33,19 @@ Param    (
         Add-Type -AssemblyName System.Web
         $query_strings = [System.Web.HttpUtility]::ParseQueryString([String]::Empty)
 
-        foreach ($key in $query_params.Keys) {
-            $query_strings.Add($key, $query_params.$key)
+        foreach ($key in $query_params.GetEnumerator()) {
+            if($key.Value -is [system.array]){
+                foreach ($value in $key.Value) {
+                    $query_strings.Add($key.Key + "[]", "${value}")
+                }
+            } else {$query_strings.Add($key.Key, $key.Value)}
         }
 
         $uriRequest = [System.UriBuilder]"${API_URL}${request_URI}"
         $uriRequest.Query = $query_strings.ToString()
         $params = $uriRequest.Query
-        $body_content = $query_params
+        $body_content = $content
+        $uri = "${API_URL}${request_URI}${params}"
     }
 
     $content_MD5 = ''
@@ -49,7 +56,7 @@ Param    (
     $signature = $hmacsha.ComputeHash([Text.Encoding]::ASCII.GetBytes($message))
     $signature = [Convert]::ToBase64String($signature)
 
-    Invoke-WebRequest -Uri "${API_URL}${request_URI}" -Method $http_method -Headers @{
+    Invoke-WebRequest -Uri $uri -Method $http_method -Headers @{
         "accept"        = "application/json";
         "Date"          = $timestamp
         "Authorization" = "Cyberwatch APIAuth-HMAC-SHA256 ${API_KEY}:$signature"
