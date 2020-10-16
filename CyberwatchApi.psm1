@@ -379,6 +379,56 @@ Class CbwApiClient {
     {
         return $this.request('POST', "/api/v2/cbw_scans/scripts", $content)
     }
+
+    [object] compliance_servers()
+    {
+        return $this.request_pagination("GET", "/api/v3/compliance/servers")
+    }
+
+    [object] compliance_servers([Hashtable]$filter)
+    {
+        return $this.request_pagination("GET", "/api/v3/compliance/servers", $filter)
+    }
+
+    [object] compliance_server([string]$id)
+    {
+        return $this.request("GET", "/api/v3/compliance/servers/${id}")
+    }
+
+    [object] recheck_rules([string]$id)
+    {
+        return $this.request("PUT", "/api/v3/compliance/servers/${id}/recheck_rules")
+    }
+
+    [object] compliance_rules()
+    {
+        return $this.request("GET", "/api/v3/compliance/rules")
+    }
+
+    [object] compliance_rules([Hashtable]$filter)
+    {
+        return $this.request("GET", "/api/v3/compliance/rules", $filter)
+    }
+
+    [object] compliance_rule([string]$id)
+    {
+        return $this.request("GET", "/api/v3/compliance/rules/${id}")
+    }
+
+    [object] create_compliance_rule([Object]$content)
+    {
+        return $this.request("POST", "/api/v3/compliance/rules", $content)
+    }
+
+    [object] delete_compliance_rule([string]$id)
+    {
+        return $this.request("DELETE", "/api/v3/compliance/rules/${id}")
+    }
+
+    [object] recheck_servers([string]$id)
+    {
+        return $this.request("PUT", "/api/v3/compliance/rules/${id}/recheck_servers")
+    }
 }
 
 
