@@ -6,7 +6,7 @@
 
 ## API Documentation
 
-See the full API documentation [here](https://docs.cyberwatch.fr/)
+See the full API documentation [here](https://docs.cyberwatch.fr/api/#introduction)
 
 ## Usage
 
