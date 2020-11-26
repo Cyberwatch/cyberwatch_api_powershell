@@ -429,6 +429,36 @@ Class CbwApiClient {
     {
         return $this.request("PUT", "/api/v3/compliance/rules/${id}/recheck_servers")
     }
+
+    [object] stored_credentials()
+    {
+        return $this.request('GET', "/api/v3/assets/credentials")
+    }
+
+    [object] stored_credentials([Object]$filters)
+    {
+        return $this.request_pagination('GET', '/api/v3/assets/credentials', $filters)
+    }
+
+    [object] stored_credential([string]$id)
+    {
+        return $this.request('GET', "/api/v3/assets/credentials/${id}")
+    }
+
+    [object] create_stored_credential([Object]$content)
+    {
+        return $this.request('POST', '/api/v3/assets/credentials', $content)
+    }
+
+    [object] update_stored_credential([string]$id, [Object]$content)
+    {
+        return $this.request('PUT', "/api/v3/assets/credentials/${id}", $content)
+    }
+
+    [object] delete_stored_credential([string]$id)
+    {
+        return $this.request('DELETE', "/api/v3/assets/credentials/${id}")
+    }
 }
 
 
