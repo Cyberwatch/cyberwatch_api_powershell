@@ -461,7 +461,6 @@ Class CbwApiClient {
     }
 }
 
-
 function Get-CyberwatchApi
 {
 <#
@@ -474,12 +473,22 @@ function Get-CyberwatchApi
         Get-CyberwatchApi -api_url $API_URL -api_key $API_KEY -secret_key $SECRET_KEY -trust_all_certificates $ALLOW_SELFSIGNED
 .PARAMETER api_url
         Your Cyberwatch instance base url
+.PARAMETER api_key
+        Your Cyberwatch API key
+.PARAMETER secret_key
+        Your Cyberwatch API secret
+.PARAMETER trust_all_certificates
+        Allows the script to connect to Cyberwatch instances with a self-signed certificate
+.PARAMETER conf_file
+        Allows you to specify a configuration file to be used to connect to the Cyberwatch API
+        A valid configuration file should include the following parameters: api_key, secret_key, api_url
 #>
 Param    (
-    [PARAMETER(Mandatory=$true)][string]$api_url,
-    [PARAMETER(Mandatory=$true)][string]$api_key,
-    [PARAMETER(Mandatory=$true)][string]$secret_key,
-    [PARAMETER(Mandatory=$false)][bool]$trust_all_certificates = $false
+    [PARAMETER(Mandatory=$false)][string]$api_url,
+    [PARAMETER(Mandatory=$false)][string]$api_key,
+    [PARAMETER(Mandatory=$false)][string]$secret_key,
+    [PARAMETER(Mandatory=$false)][bool]$trust_all_certificates = $false,
+    [PARAMETER(Mandatory=$false)][string]$conf_file
     )
 
     # Allow request to self-signed certificate
@@ -498,6 +507,21 @@ Param    (
         [System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy
     }
 
-    return [CbwApiClient]::new($api_url, $api_key, $secret_key)
-}
+    if(!([string]::IsNullOrEmpty($conf_file))) {
+        if(!(Test-Path $conf_file -PathType Leaf)) {
+            Write-Error -Category ObjectNotFound -TargetObject $conf_file "Config file not found or wrong type"
+        }
+        $conf=@{}
+        Get-Content $conf_file | foreach-object -process { $fields = [regex]::split($_,' = ');
+            if($fields[0].StartsWith("[") -eq $True) { $type = $fields[0].Substring(1, $fields[0].Length-2); $conf.$type = @{} }
+            if(($fields[0].CompareTo("") -ne 0) -and ($fields[0].StartsWith("[") -ne $True)) { $conf[$type][$fields[0].trim()] = $fields[1].trim() }
+        }
+        return [CbwApiClient]::new($conf.cyberwatch.url, $conf.cyberwatch.api_key, $conf.cyberwatch.secret_key)
+    }
 
+    if( !([string]::IsNullOrEmpty($api_url)) -and !([string]::IsNullOrEmpty($api_key)) -and !([string]::IsNullOrEmpty($secret_key)) ) {
+        return [CbwApiClient]::new($api_url, $api_key, $secret_key)
+    }
+
+    Write-Error -Category AuthenticationError -RecommendedAction "Please provide Cyberwatch's API information" "Missing API informations or configuration file"
+}
