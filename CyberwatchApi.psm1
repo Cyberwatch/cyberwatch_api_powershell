@@ -460,6 +460,36 @@ Class CbwApiClient {
         return $this.request('DELETE', "/api/v3/assets/credentials/${id}")
     }
 
+    [object] applicative_scans()
+    {
+        return $this.request('GET', "/api/v3/assets/applicative_scans")
+    }
+
+    [object] applicative_scans([Object]$filters)
+    {
+        return $this.request_pagination('GET', '/api/v3/assets/applicative_scans', $filters)
+    }
+
+    [object] applicative_scan([string]$id)
+    {
+        return $this.request('GET', "/api/v3/assets/applicative_scans/${id}")
+    }
+
+    [object] create_applicative_scan([Object]$content)
+    {
+        return $this.request('POST', '/api/v3/assets/applicative_scans', $content)
+    }
+
+    [object] update_applicative_scan([string]$id, [Object]$content)
+    {
+        return $this.request('PATCH', "/api/v3/assets/applicative_scans/${id}", $content)
+    }
+
+    [object] delete_applicative_scan([string]$id)
+    {
+        return $this.request('DELETE', "/api/v3/assets/applicative_scans/${id}")
+    }
+
     [object] docker_images()
     {
         return $this.request('GET', "/api/v3/assets/docker_images")
