@@ -459,6 +459,36 @@ Class CbwApiClient {
     {
         return $this.request('DELETE', "/api/v3/assets/credentials/${id}")
     }
+
+    [object] docker_images()
+    {
+        return $this.request('GET', "/api/v3/assets/docker_images")
+    }
+
+    [object] docker_images([Object]$filters)
+    {
+        return $this.request_pagination('GET', '/api/v3/assets/docker_images', $filters)
+    }
+
+    [object] docker_image([string]$id)
+    {
+        return $this.request('GET', "/api/v3/assets/docker_images/${id}")
+    }
+
+    [object] create_docker_image([Object]$content)
+    {
+        return $this.request('POST', '/api/v3/assets/docker_images', $content)
+    }
+
+    [object] update_docker_image([string]$id, [Object]$content)
+    {
+        return $this.request('PATCH', "/api/v3/assets/docker_images/${id}", $content)
+    }
+
+    [object] delete_docker_image([string]$id)
+    {
+        return $this.request('DELETE', "/api/v3/assets/docker_images/${id}")
+    }
 }
 
 function Get-CyberwatchApi
