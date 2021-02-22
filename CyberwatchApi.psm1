@@ -127,127 +127,127 @@ Class CbwApiClient {
 
     [object] servers()
     {
-        return $this.request_pagination('GET', '/api/v3/servers')
+        return $this.request_pagination('GET', '/api/v3/vulnerabilities/servers')
     }
 
     [object] servers([Object]$filters)
     {
-        return $this.request_pagination('GET', '/api/v3/servers', $filters)
+        return $this.request_pagination('GET', '/api/v3/vulnerabilities/servers', $filters)
     }
 
     [object] server([string]$id)
     {
-        return $this.request('GET', "/api/v3/servers/${id}")
+        return $this.request('GET', "/api/v3/vulnerabilities/servers/${id}")
     }
 
     [object] update_server([string]$id, [Object]$content)
     {
-        return $this.request('PUT', "/api/v3/servers/${id}", $content)
+        return $this.request('PUT', "/api/v3/vulnerabilities/servers/${id}", $content)
     }
 
     [object] refresh_server([string]$id)
     {
-        return $this.request('PUT', "/api/v3/servers/${id}/refresh")
+        return $this.request('PUT', "/api/v3/vulnerabilities/servers/${id}/refresh")
     }
 
     [object] delete_server([string]$id)
     {
-        return $this.request('DELETE', "/api/v3/servers/${id}")
+        return $this.request('DELETE', "/api/v3/vulnerabilities/servers/${id}")
     }
 
     [object] update_server_cve([string]$id, [string]$cve_code, [Object]$content)
     {
-        return $this.request('PUT', "/api/v3/servers/${id}/cve_announcements/${cve_code}", $content)
+        return $this.request('PUT', "/api/v3/vulnerabilities/servers/${id}/cve_announcements/${cve_code}", $content)
     }
 
     [object] server_schedule_updates([string]$id, [Object]$content)
     {
-        return $this.request('POST', "/api/v3/servers/${id}/updates", $content)
+        return $this.request('POST', "/api/v3/vulnerabilities/servers/${id}/updates", $content)
     }
 
     [object] remote_accesses()
     {
-        return $this.request_pagination('GET', '/api/v3/remote_accesses')
+        return $this.request_pagination('GET', '/api/v3/assets/remote_accesses')
     }
 
     [object] remote_accesses([Object]$filters)
     {
-        return $this.request_pagination('GET', '/api/v3/remote_accesses', $filters)
+        return $this.request_pagination('GET', '/api/v3/assets/remote_accesses', $filters)
     }
 
     [object] remote_access([string]$id)
     {
-        return $this.request('GET', "/api/v3/remote_accesses/${id}")
+        return $this.request('GET', "/api/v3/assets/remote_accesses/${id}")
     }
 
     [object] create_remote_access([Object]$content)
     {
-        return $this.request('POST', '/api/v3/remote_accesses', $content)
+        return $this.request('POST', '/api/v3/assets/remote_accesses', $content)
     }
 
     [object] update_remote_access([string]$id, [Object]$content)
     {
-        return $this.request('PUT', "/api/v3/remote_accesses/${id}", $content)
+        return $this.request('PUT', "/api/v3/assets/remote_accesses/${id}", $content)
     }
 
     [object] delete_remote_access([string]$id)
     {
-        return $this.request('DELETE', "/api/v3/remote_accesses/${id}")
+        return $this.request('DELETE', "/api/v3/assets/remote_accesses/${id}")
     }
 
     [object] groups()
     {
-        return $this.request_pagination('GET', "/api/v3/groups")
+        return $this.request_pagination('GET', "/api/v3/assets/groups")
     }
 
     [object] groups([Object]$filters)
     {
-        return $this.request_pagination('GET', '/api/v3/groups', $filters)
+        return $this.request_pagination('GET', '/api/v3/assets/groups', $filters)
     }
 
     [object] group([string]$id)
     {
-        return $this.request('GET', "/api/v3/groups/${id}")
+        return $this.request('GET', "/api/v3/assets/groups/${id}")
     }
 
     [object] create_group([Object]$content)
     {
-        return $this.request('POST', '/api/v3/groups', $content)
+        return $this.request('POST', '/api/v3/assets/groups', $content)
     }
 
     [object] update_group([string]$id, [Object]$content)
     {
-        return $this.request('PATCH', "/api/v3/groups/${id}", $content)
+        return $this.request('PATCH', "/api/v3/assets/groups/${id}", $content)
     }
 
     [object] delete_group([string]$id)
     {
-        return $this.request('DELETE', "/api/v3/groups/${id}")
+        return $this.request('DELETE', "/api/v3/assets/groups/${id}")
     }
 
     [object] cve_announcement([string]$id)
     {
-        return $this.request('GET', "/api/v3/cve_announcements/${id}")
+        return $this.request('GET', "/api/v3/vulnerabilities/cve_announcements/${id}")
     }
 
     [object] cve_announcements()
     {
-        return $this.request_pagination('GET', "/api/v3/cve_announcements")
+        return $this.request_pagination('GET', "/api/v3/vulnerabilities/cve_announcements")
     }
 
     [object] cve_announcements([Hashtable]$query_params)
     {
-        return $this.request_pagination('GET', "/api/v3/cve_announcements", $query_params)
+        return $this.request_pagination('GET', "/api/v3/vulnerabilities/cve_announcements", $query_params)
     }
 
     [object] update_cve_announcement([string]$id, [Object]$content)
     {
-        return $this.request('PUT', "/api/v3/cve_announcements/${id}", $content)
+        return $this.request('PUT', "/api/v3/vulnerabilities/cve_announcements/${id}", $content)
     }
 
     [object] delete_cve_announcement([string]$id)
     {
-        return $this.request('DELETE', "/api/v3/cve_announcements/${id}")
+        return $this.request('DELETE', "/api/v3/vulnerabilities/cve_announcements/${id}")
     }
 
     [object] users()
@@ -317,52 +317,52 @@ Class CbwApiClient {
 
     [object] security_issues()
     {
-        return $this.request('GET', "/api/v3/security_issues")
+        return $this.request('GET', "/api/v3/vulnerabilities/security_issues")
     }
 
     [object] security_issues([Object]$filters)
     {
-        return $this.request_pagination('GET', '/api/v3/security_issues', $filters)
+        return $this.request_pagination('GET', '/api/v3/vulnerabilities/security_issues', $filters)
     }
 
     [object] security_issue([string]$id)
     {
-        return $this.request('GET', "/api/v3/security_issues/${id}")
+        return $this.request('GET', "/api/v3/vulnerabilities/security_issues/${id}")
     }
 
     [object] create_security_issue([Object]$content)
     {
-        return $this.request('POST', '/api/v3/security_issues', $content)
+        return $this.request('POST', '/api/v3/vulnerabilities/security_issues', $content)
     }
 
     [object] update_security_issue([string]$id, [Object]$content)
     {
-        return $this.request('PUT', "/api/v3/security_issues/${id}", $content)
+        return $this.request('PUT', "/api/v3/vulnerabilities/security_issues/${id}", $content)
     }
 
     [object] delete_security_issue([string]$id)
     {
-        return $this.request('DELETE', "/api/v3/security_issues/${id}")
+        return $this.request('DELETE', "/api/v3/vulnerabilities/security_issues/${id}")
     }
 
     [object] agents()
     {
-        return $this.request_pagination('GET', "/api/v3/agents")
+        return $this.request_pagination('GET', "/api/v3/assets")
     }
 
     [object] agents([Hashtable]$filter)
     {
-        return $this.request_pagination('GET', "/api/v3/agents", $filter)
+        return $this.request_pagination('GET', "/api/v3/assets", $filter)
     }
 
     [object] agent([string]$id)
     {
-        return $this.request('GET', "/api/v3/agents/${id}")
+        return $this.request('GET', "/api/v3/assets/${id}")
     }
 
     [object] delete_agent([string]$id)
     {
-        return $this.request('DELETE', "/api/v3/agents/${id}")
+        return $this.request('DELETE', "/api/v3/assets/${id}")
     }
 
     [object] fetch_importer_scripts()
@@ -488,6 +488,26 @@ Class CbwApiClient {
     [object] delete_docker_image([string]$id)
     {
         return $this.request('DELETE', "/api/v3/assets/docker_images/${id}")
+    }
+
+    [object] assets()
+    {
+        return $this.request_pagination('GET', "/api/v3/assets/servers")
+    }
+
+    [object] assets([Hashtable]$filter)
+    {
+        return $this.request_pagination('GET', "/api/v3/assets/servers", $filter)
+    }
+
+    [object] asset([string]$id)
+    {
+        return $this.request('GET', "/api/v3/assets/servers/${id}")
+    }
+
+    [object] delete_asset([string]$id)
+    {
+        return $this.request('DELETE', "/api/v3/assets/servers/${id}")
     }
 }
 
