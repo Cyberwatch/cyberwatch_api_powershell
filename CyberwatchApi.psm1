@@ -549,6 +549,11 @@ Class CbwApiClient {
     {
         return $this.request('PATCH', "/api/v3/vulnerabilities/servers/${id}/reboot", $content)
     }
+
+    [object] operating_systems()
+    {
+        return $this.request('GET', "/api/v3/os")
+    }
 }
 
 function Get-CyberwatchApi
