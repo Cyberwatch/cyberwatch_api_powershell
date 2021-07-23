@@ -539,6 +539,16 @@ Class CbwApiClient {
     {
         return $this.request('DELETE', "/api/v3/assets/servers/${id}")
     }
+
+    [object] server_reboot([string]$id)
+    {
+        return $this.request('PATCH', "/api/v3/vulnerabilities/servers/${id}/reboot")
+    }
+
+    [object] server_reboot([string]$id, [Object]$content)
+    {
+        return $this.request('PATCH', "/api/v3/vulnerabilities/servers/${id}/reboot", $content)
+    }
 }
 
 function Get-CyberwatchApi
