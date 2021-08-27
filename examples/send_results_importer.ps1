@@ -49,7 +49,7 @@ $available_results | ForEach-Object {
     $content = [IO.File]::ReadAllText($_.FullName)
     Write-Output "INFO: Sending $($_.FullName) content to the API..."
     # You can specify groups separated by commas ","
-    $client.send_result_importer(@{ output = $content ; groups = "" })
+    $client.upload_airgapped_results(@{ output = $content ; groups = "" })
     Write-Output "INFO: Done."
 }
 

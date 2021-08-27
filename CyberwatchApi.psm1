@@ -365,17 +365,17 @@ Class CbwApiClient {
         return $this.request('DELETE', "/api/v3/assets/${id}")
     }
 
-    [object] fetch_importer_scripts()
+    [object] fetch_airgapped_scripts()
     {
         return $this.request('GET', "/api/v2/cbw_scans/scripts")
     }
 
-    [object] fetch_importer_script([string]$id)
+    [object] fetch_airgapped_script([string]$id)
     {
         return $this.request('GET', "/api/v2/cbw_scans/scripts/${id}")
     }
 
-    [object] send_result_importer([Object]$content)
+    [object] upload_airgapped_results([Object]$content)
     {
         return $this.request('POST', "/api/v2/cbw_scans/scripts", $content)
     }

@@ -59,12 +59,12 @@ New-Item -path ".\upload" -Force -ItemType Directory | Out-Null
 
 # Fetch available scanning scripts from the API
 Write-Output "INFO: Fetching available scanning scripts..."
-$available_scripts = $client.fetch_importer_scripts()
+$available_scripts = $client.fetch_airgapped_scripts()
 
 # Fetch content of each scripts and attachments
 $available_scripts | ForEach-Object{
     Write-Output "INFO: Fetching content for $($_.Type) ..."
-    $scanning_script = $client.fetch_importer_script($_.id)
+    $scanning_script = $client.fetch_airgapped_script($_.id)
     $scanning_script_path = ".\"+$scanning_script.type.ToLower().replace("::", "\")
 
     if ($scanning_script.type -like '*Linux*') {

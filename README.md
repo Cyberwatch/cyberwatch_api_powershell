@@ -473,7 +473,7 @@ last_communication : 2019-08-22T14:30:17.000+02:00
 - Use the client to retrieve all scanning scripts for Importer:
 
 ```powershell
-PS> $client.fetch_importer_scripts()
+PS> $client.fetch_airgapped_scripts()
 
 id type
 -- ----
