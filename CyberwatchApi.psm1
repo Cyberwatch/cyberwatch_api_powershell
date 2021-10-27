@@ -347,22 +347,22 @@ Class CbwApiClient {
 
     [object] agents()
     {
-        return $this.request_pagination('GET', "/api/v3/assets")
+        return $this.request_pagination('GET', "/api/v3/assets/agents")
     }
 
     [object] agents([Hashtable]$filter)
     {
-        return $this.request_pagination('GET', "/api/v3/assets", $filter)
+        return $this.request_pagination('GET', "/api/v3/assets/agents", $filter)
     }
 
     [object] agent([string]$id)
     {
-        return $this.request('GET', "/api/v3/assets/${id}")
+        return $this.request('GET', "/api/v3/assets/agents/${id}")
     }
 
     [object] delete_agent([string]$id)
     {
-        return $this.request('DELETE', "/api/v3/assets/${id}")
+        return $this.request('DELETE', "/api/v3/assets/agents/${id}")
     }
 
     [object] fetch_airgapped_scripts()
