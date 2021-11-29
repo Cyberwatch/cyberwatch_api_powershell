@@ -554,6 +554,16 @@ Class CbwApiClient {
     {
         return $this.request('GET', "/api/v3/os")
     }
+
+    [object] fetch_compliance_airgapped_scripts([Hashtable]$filter)
+    {
+        return $this.request_pagination('GET', "/api/v2/compliances/scripts", $filter)
+    }
+
+    [object] upload_compliance_airgapped_results([Object]$content)
+    {
+        return $this.request('POST', "/api/v2/compliances/scripts", $content)
+    }
 }
 
 function Get-CyberwatchApi
