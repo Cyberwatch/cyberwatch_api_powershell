@@ -44,7 +44,7 @@ try
 }
 catch
 {
-    Write-Output "ERROR: Connection failed. Please check the credentials. If needed, please reach the Cyberwatch support for further assistance."
+    Write-Output "ERROR: Connection failed. Please check the following error message : '$_'"
     Return
 }
 
@@ -55,7 +55,7 @@ Write-Output "INFO: Done."
 
 # Create the base folders
 New-Item -path ".\scripts" -Force -ItemType Directory | Out-Null
-New-Item -path ".\upload" -Force -ItemType Directory | Out-Null
+New-Item -path ".\uploads" -Force -ItemType Directory | Out-Null
 
 # Fetch available scanning scripts from the API
 Write-Output "INFO: Fetching available scanning scripts..."

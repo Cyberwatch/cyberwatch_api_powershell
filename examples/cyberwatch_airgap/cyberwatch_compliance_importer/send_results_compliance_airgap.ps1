@@ -13,14 +13,14 @@ $API_URL = ""
 # -------------------------
 
 Write-Output "-------------------------------------------"
-Write-Output "Cyberwatch - Send results for analysis"
+Write-Output "Cyberwatch - Send Compliance Airgap results for analysis"
 Write-Output "-------------------------------------------"
 
 Function SendResultsImporter
 {
 <#
 .SYNOPSIS
-        Example script to send Importer scanning scripts results
+        Example script to send Compliance Airgap scripts results
 #>
 
 # Create the client variable
@@ -35,13 +35,13 @@ try
 }
 catch
 {
-    Write-Output "ERROR: Connection failed. Please check credentials. If needed, please reach the Cyberwatch support for further assistance."
+    Write-Output "ERROR: Connection failed. Please check the following error message : '$_'"
     Return
 }
 
 # Load results and send them to Cyberwatch
 Write-Output "INFO: Searching for available results..."
-$available_results = Get-ChildItem -Recurse -File -Path ".\upload"
+$available_results = Get-ChildItem -Recurse -File -Path ".\uploads"
 Write-Output "INFO: Done. Found $($available_results.count) results to be processed and sent for analysis."
 
 $available_results | ForEach-Object {
@@ -49,7 +49,7 @@ $available_results | ForEach-Object {
     $content = [IO.File]::ReadAllText($_.FullName)
     Write-Output "INFO: Sending $($_.FullName) content to the API..."
     # You can specify groups separated by commas ","
-    $client.upload_airgapped_results(@{ output = $content ; groups = "" })
+    $client.upload_compliance_airgapped_results(@{ output = $content })
     Write-Output "INFO: Done."
 }
 
