@@ -27,7 +27,7 @@ Author = 'Cyberwatch Team'
 CompanyName = 'Cyberwatch SAS'
 
 # Copyright statement for this module
-Copyright = '(c) 2019 Cyberwatch SAS. All rights reserved.'
+Copyright = '(c) 2019-2021 Cyberwatch SAS. All rights reserved.'
 
 # Description of the functionality provided by this module
 Description = 'Provide a simple api client to consume Cyberwatch REST Client with HMAC authentication.'
