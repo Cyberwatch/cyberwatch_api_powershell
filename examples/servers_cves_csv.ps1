@@ -7,8 +7,8 @@ $client = Get-CyberwatchApi -conf_file api.conf
 $GROUP_ID = ""
 
 $servers = $client.servers(@{
-    "group_id" = $GROUP_ID
-})
+        "group_id" = $GROUP_ID
+    })
 
 #Get all servers details + all CVE code
 $all_servers = @()
@@ -30,23 +30,27 @@ foreach ($server in $all_servers) {
                     $cve = $server_cve
                 }
             }
+
+            if ($null -eq $update.target.product) {
+                $techno = $update.current.product
+            }
+            else {
+                $techno = $update.target.product
+            }
+
             $to_export += [pscustomobject]@{
-                Hostname     = $server.Hostname
-                Technologie  = $update.target.product
-                Vulnerabilite  = $cve.cve_code
-                Derniere_analyse = $server.analyzed_at
-                Score_CVSS = $cve.score
+                Hostname                  = $server.Hostname
+                Technologie               = $techno
+                Vulnerabilite             = $cve.cve_code
+                Derniere_analyse          = $server.analyzed_at
+                Score_CVSS                = $cve.score
                 Vulnerabilite_prioritaire = $cve.prioritized
-                Date_de_detection = $cve.detected_at
-                Ignoree = $cve.ignored
-                Commentaire = $cve.comment
+                Date_de_detection         = $cve.detected_at
+                Ignoree                   = $cve.ignored
+                Commentaire               = $cve.comment
             }
         }
     }
+    # Export CSV
     $to_export | Sort-Object -Property 'Hostname' -Descending | Export-Csv -NoTypeInformation -Delimiter ';' -Path (join-path ((Get-Item .).FullName) "$(get-date -f dd-MM)_$($server.Hostname)_cyberwatch.csv")
-
 }
-
-# Export CSV
-
-cmd /c pause
