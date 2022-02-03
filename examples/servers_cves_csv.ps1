@@ -13,10 +13,8 @@ $servers = $client.servers(@{
 #Get all servers details + all CVE code
 $all_servers = @()
 foreach ($server in $servers) {
-    if ($server.cve_announcements_count -gt 0) {
-        $asset = $client.server($server.id)
-        $all_servers += $asset
-    }
+    $asset = $client.server($server.id)
+    $all_servers += $asset
 }
 
 # Find corresponding technology of each server + build CSV list
