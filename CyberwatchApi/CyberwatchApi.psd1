@@ -12,7 +12,7 @@
 RootModule = 'CyberwatchApi.psm1'
 
 # Version number of this module.
-ModuleVersion = '2.3'
+ModuleVersion = '2.4'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -27,7 +27,7 @@ Author = 'Cyberwatch Team'
 CompanyName = 'Cyberwatch SAS'
 
 # Copyright statement for this module
-Copyright = '(c) 2019-2021 Cyberwatch SAS. All rights reserved.'
+Copyright = '(c) 2019-2022 Cyberwatch SAS. All rights reserved.'
 
 # Description of the functionality provided by this module
 Description = 'Provide a simple api client to consume Cyberwatch REST Client with HMAC authentication.'
