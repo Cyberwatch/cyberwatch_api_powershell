@@ -564,6 +564,11 @@ Class CbwApiClient {
     {
         return $this.request('POST', "/api/v2/compliances/scripts", $content)
     }
+
+    [object] test_deploy_remote_access([string]$id)
+    {
+        return $this.request('PUT', "/api/v3/assets/remote_accesses/${id}/test_deploy")
+    }
 }
 
 function Get-CyberwatchApi
