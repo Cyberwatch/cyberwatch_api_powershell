@@ -27,7 +27,7 @@ Param    (
     if ($content) {
         $content_type = 'application/json'
         $body_content = $content | ConvertTo-Json
-		$body_content = ([System.Text.Encoding]::UTF8.GetBytes($body_content))
+	$body_content = ([System.Text.Encoding]::UTF8.GetBytes($body_content))
     }
     elseif ($query_params) {
         $content_type = ''
