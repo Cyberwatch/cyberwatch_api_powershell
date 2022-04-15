@@ -27,6 +27,7 @@ Param    (
     if ($content) {
         $content_type = 'application/json'
         $body_content = $content | ConvertTo-Json
+		$body_content = ([System.Text.Encoding]::UTF8.GetBytes($body_content))
     }
     elseif ($query_params) {
         $content_type = ''
@@ -84,11 +85,18 @@ Param    (
         $last_page_number = $matches[1]
         1..$last_page_number | ForEach-Object {
         $query_params["page"] = $_;
-        SendApiRequest -api_url $api_url -api_key $api_key -secret_key $secret_key -http_method $http_method -request_URI $request_URI -content $content -query_params $query_params | ConvertFrom-Json | ForEach-Object { $_ }
+        $response = SendApiRequest -api_url $api_url -api_key $api_key -secret_key $secret_key -http_method $http_method -request_URI $request_URI -content $content -query_params $query_params 
+        $correctedAnswer = [Text.Encoding]::UTF8.GetString([Text.Encoding]::GetEncoding(65001).GetBytes($response.Content)) 
+        $correctedAnswer | ConvertFrom-Json | ForEach-Object { $_ }
+
         }
     }
 
-    else { $response | ConvertFrom-JSON }
+    else { 
+   
+        $correctedAnswer = [Text.Encoding]::UTF8.GetString([Text.Encoding]::GetEncoding(65001).GetBytes($response.Content)) 
+        $correctedAnswer | ConvertFrom-JSON 
+    }
 
 }
 
