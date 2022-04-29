@@ -13,7 +13,7 @@ See the full API documentation [here](https://docs.cyberwatch.fr/api/#introducti
 - Download and run `CyberwatchApi.psm1` with Powershell
 
 ```powershell
-wget 'https://raw.githubusercontent.com/Cyberwatch/cyberwatch_api_powershell/master/CyberwatchApi.psm1' | iex
+wget 'https://raw.githubusercontent.com/Cyberwatch/cyberwatch_api_powershell/master/CyberwatchApi/CyberwatchApi.psm1' | iex
 ```
 
 Or import it from Powershell Gallery:
