@@ -402,12 +402,12 @@ Class CbwApiClient {
 
     [object] compliance_rules()
     {
-        return $this.request("GET", "/api/v3/compliance/rules")
+        return $this.request_pagination("GET", "/api/v3/compliance/rules")
     }
 
     [object] compliance_rules([Hashtable]$filter)
     {
-        return $this.request("GET", "/api/v3/compliance/rules", $filter)
+        return $this.request_pagination("GET", "/api/v3/compliance/rules", $filter)
     }
 
     [object] compliance_rule([string]$id)
