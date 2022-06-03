@@ -569,6 +569,21 @@ Class CbwApiClient {
     {
         return $this.request('PUT', "/api/v3/assets/remote_accesses/${id}/test_deploy")
     }
+
+    [object] discoveries()
+    {
+        return $this.request('GET', "/api/v3/assets/discoveries")
+    }
+
+    [object] relaunch_discovery([string]$id)
+    {
+        return $this.request('PUT', "/api/v3/assets/discoveries/${id}/relaunch")
+    }
+
+    [object] delete_discovery([string]$id)
+    {
+        return $this.request('DELETE', "/api/v3/assets/discoveries/${id}")
+    }
 }
 
 function Get-CyberwatchApi
