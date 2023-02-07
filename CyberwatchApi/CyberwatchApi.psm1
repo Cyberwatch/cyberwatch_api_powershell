@@ -25,7 +25,7 @@ Param    (
     $uri = "${API_URL}${request_URI}"
 
     if ($content) {
-        $content_type = 'application/json'
+        $content_type = 'application/json ; charset=utf-8'
         $body_content = $content | ConvertTo-Json
     }
     elseif ($query_params) {
