@@ -1,4 +1,10 @@
-# Cyberwatch Api Powershell Client
+# \[DEPRECATED\] Cyberwatch Api Powershell Client
+
+## New API method
+
+This module has been deprecated. Please consider using [the PowerShell Invoke-WebRequest cmdlet](https://docs.cyberwatch.fr/en/9_API_documentation/powerShell_snippets.html).
+
+Please contact Cyberwatch support if you need help to migrate your existing scripts to the new client.
 
 ## Prerequisites
 
