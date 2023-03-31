@@ -2,7 +2,7 @@
 
 ## New API method
 
-This module has been deprecated. Please consider using [the PowerShell Invoke-WebRequest cmdlet](https://docs.cyberwatch.fr/en/9_API_documentation/powerShell_snippets.html).
+This module has been deprecated. Please consider using [the PowerShell Invoke-WebRequest cmdlet](https://docs.cyberwatch.fr/en/API_documentation/powerShell_snippets.html).
 
 Please contact Cyberwatch support if you need help to migrate your existing scripts to the new client.
 
